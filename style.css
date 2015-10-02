@@ -29,6 +29,13 @@ html, body, #mapDiv {
     padding-left: 10px;
 }
 
+#HomeButton {
+    position: absolute;
+    top: 150px;
+    left: 20px;
+    z-index: 50;
+}
+
 .rightArea{
     position:absolute;
     right:0;
