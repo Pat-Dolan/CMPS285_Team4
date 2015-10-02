@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
 	<script src="http://js.arcgis.com/3.14/"></script>
 	<link rel = "stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="script.js"></script>
 
   </head>
@@ -20,14 +21,17 @@
 			</div>
 		</div>
 		<div class="textArea" style="width: 829px;">
-			<h1 class="title" tabindex="0">Ruskins Journey</h1>
+            <h1 class="title" tabindex="0">Ruskins Journey</h1>
 		</div>
 	</div>
   </header>
    
   <body>
     <div id="mapDiv" class="map">
-      <div id="HomeButton"></div>
+        <div id="HomeButton"></div>
+        <ul>
+            <li id="layer1">earthquakes</li>
+        </ul>
     </div>
     <div id="footer">
         <canvas id="tutorial" width="150" height="150"></canvas>
