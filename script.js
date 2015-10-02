@@ -23,7 +23,7 @@ require(["esri/map",
   csv = new CSVLayer("2.5_week.csv", {
       copyright: "USGS.gov"
   });
-  var marker = new PictureMarkerSymbol("markers/StaticIcon1.png", 20, 20);
+  var marker = new PictureMarkerSymbol("StaticIcon1.png", 20, 20);
   var renderer = new SimpleRenderer(marker);
   csv.setRenderer(renderer);
   var template = new InfoTemplate("${type}", "${place}");
