@@ -6,10 +6,9 @@
 	<link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
 	<script src="http://js.arcgis.com/3.14/"></script>
 	<link rel = "stylesheet" href="style.css">
+	<script src="script.js"></script>
     
-
-  </head>
-  <header>
+ <header>
 	<div id="header" style="display: block; background-color: #3B5786;">
 		<div class="rightArea">
 			<div class="logo">
@@ -22,16 +21,32 @@
 			<h1 class="title" tabindex="0" style="margin-top: 40px;">Ruskins Journey</h1>
 		</div>
 	</div>
-  </header>
-   
+  </header> 
+  </head>
+  
   <body>
-
-<div id="footer">
-<canvas id="tutorial" width="150" height="150"></canvas>
-</div>
-  
-  
   <div id="mapDiv"></div>
-  <script src="script.js"></script>
-  </body>
+		<div class ="rightPane">
+			<div class="legend">
+			<form>
+				<fieldset>
+				<legend> Perspective </legend>
+				<table align="left">
+					<tr>
+						<td> Mary and John</td>
+					</tr>
+					<tr>
+						<td> Ruskin </td>
+					</tr>
+					<tr>
+						<td> Witness </td>
+					</tr>
+				</table>
+				</fieldset>
+			</form>
+				
+			</div>
+		</div>
+	</div>
+   </body>
 </html>
