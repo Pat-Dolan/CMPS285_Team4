@@ -1,18 +1,4 @@
 var map;
-<<<<<<< HEAD
-require(["esri/map", "esri/layers/FeatureLayer", "esri/dijit/Legend",
-		 "dojo/_base/array", "dojo/parser", "dijit/layout/BorderContainer",
-		 "dijit/layout/ContentPane", "dijit/layout/AccordionContainer",
-		 "dojo/domReady!"], 
-		 function(Map, FeatureLayer, Legend, arrayUtils, parser) {
-			parser.parse();
-			map = new Map("mapDiv", {
-			center: [1.868956,50.9518855],
-			zoom: 7,
-			basemap: "streets"
-		});
-});
-=======
 var home;
 var csv;
 require(["esri/map",
@@ -26,8 +12,8 @@ require(["esri/map",
   map = new Map("mapDiv", {
     center: [1.868956,50.9518855],
     zoom: 7,
-    basemap: "streets"
-    //basemap: "gray" //I think this looks nice
+    //basemap: "streets"
+    basemap: "gray" //I think this looks nice
   });
   home = new HomeButton({map: map
   }, "HomeButton");
@@ -37,7 +23,7 @@ require(["esri/map",
   csv = new CSVLayer("2.5_week.csv", {
       copyright: "USGS.gov"
   });
-  var marker = new PictureMarkerSymbol("StaticIcon1.png", 20, 20);
+  var marker = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 20, 20);
   var renderer = new SimpleRenderer(marker);
   csv.setRenderer(renderer);
   var template = new InfoTemplate("${type}", "${place}");
@@ -55,4 +41,3 @@ $(document).ready(function(){
     });
 });
 
->>>>>>> 79500b63290e2974a264305c53522c2955484f31
