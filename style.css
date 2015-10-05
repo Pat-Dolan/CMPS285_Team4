@@ -116,6 +116,7 @@ html, body, #mapDiv {
     background-color: #F7F7F7;
     color: #3B5786;
     text-decoration: underline;
+<<<<<<< HEAD
 }
 
 .rightPane{
@@ -140,4 +141,6 @@ fieldset{
 	border-width: 5px;
 	opacity: 1;
 	background-color: #FFFFFF;
+=======
+>>>>>>> 79500b63290e2974a264305c53522c2955484f31
 }
