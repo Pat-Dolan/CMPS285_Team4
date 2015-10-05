@@ -3,12 +3,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+	<title>The Ruskin Journey</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
 	<script src="http://js.arcgis.com/3.14/"></script>
 	<link rel = "stylesheet" href="style.css">
-	<script src="script.js"></script>
-    
- <header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+  </head>
+  <header>
 	<div id="header" style="display: block; background-color: #3B5786;">
 		<div class="rightArea">
 			<div class="logo">
@@ -18,16 +21,21 @@
 			</div>
 		</div>
 		<div class="textArea" style="width: 829px;">
-			<h1 class="title" tabindex="0" style="margin-top: 40px;">Ruskins Journey</h1>
+            <h1 class="title" tabindex="0">Ruskins Journey</h1>
 		</div>
 	</div>
-  </header> 
-  </head>
-  
+  </header>
+   
   <body>
-  <div id="mapDiv"></div>
-		<div class ="rightPane">
-			<div class="legend">
+    <div id="mapDiv" class="map">
+        <div id="HomeButton"></div>
+        <ul>
+            <li id="layer1">earthquakes</li>
+        </ul>
+    </div>
+	
+	<div class ="rightPane">
+		<div class="legend">
 			<form>
 				<fieldset>
 				<legend> Perspective </legend>
@@ -45,8 +53,10 @@
 				</fieldset>
 			</form>
 				
-			</div>
 		</div>
 	</div>
-   </body>
+    <div id="footer">
+        <canvas id="tutorial" width="150" height="150"></canvas>
+    </div>
+  </body>
 </html>
