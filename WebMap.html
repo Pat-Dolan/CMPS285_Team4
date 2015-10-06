@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -21,7 +22,7 @@
 			</div>
 		</div>
 		<div class="textArea" style="width: 829px;">
-            <h1 class="title" tabindex="0">Ruskins Journey</h1>
+            <h1 class="title" tabindex="0">The Ruskin Journey</h1>
 		</div>
 	</div>
   </header>
@@ -51,8 +52,56 @@
         <input type="range" min = "1" max="5" step = "1" onchange = "getValue(this.value)"/>
         <span id="range"></span>
 
-        <canvas id="tutorial" width="1250" height="150"></canvas>
+		<div class="scroll">
+			<canvas id="timeline" width="1950" height="230">
+				Your browser doesn't support canvas.
+			</canvas>
+		</div>
 
+		<script>
+
+		function Shape(x, y, w, h, fill1, fill2, text) {
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+			this.fill1 = fill1;
+			this.fill2 = fill2;
+			this.text = text;
+		}
+
+		// get canvas element
+		var elem = document.getElementById('timeline');
+
+		// check if context exists
+		if (elem.getContext) {
+
+			var box = new Array("","","","","","","","","");
+
+			// get method to read in "text" data - "TEST"
+			box[0] = new Shape(15, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST1");
+			box[1] = new Shape(230, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST2");
+			box[2] = new Shape(445, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST3");
+			box[3] = new Shape(660, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST4");
+			box[4] = new Shape(875, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST5");
+			box[5] = new Shape(1090, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST6");
+			box[6] = new Shape(1305, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST7");
+			box[7] = new Shape(1520, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST8");
+			box[8] = new Shape(1735, 15, 200, 200, "rgba(95,95,95,0.3)", "#000", "TEST9");
+
+			context = elem.getContext('2d');
+			for (var i=0; i<box.length; i++) {
+				context.fillStyle = box[i].fill1;
+				context.fillRect(box[i].x, box[i].y, box[i].w, box[i].h);
+				context.fillStyle = box[i].fill2;
+				context.fillText(box[i].text, 30+box[i].x, 30+box[i].y);
+				// text location = coordinates with equation (+box[i].x) and (+box[i].y)
+
+			}
+		}
+
+		</script>
     </div>
+
   </body>
 </html>
