@@ -15,7 +15,7 @@ require(["esri/map",
 ], function(Map, HomeButton, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
   map = new Map("mapDiv", {
     center: [1.868956,50.9518855],
-    zoom: 7,
+    zoom: 3,
     //basemap: "streets"
     basemap: "gray" //I think this looks nice
   });
@@ -44,8 +44,8 @@ $(document).ready(function(){
         }
     });
     $("#footer").click(function(){
-        $(this).toggleClass("opened")
-    })
+        $(this).toggleClass("opened");
+    });
 });
 
 /*
