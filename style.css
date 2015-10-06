@@ -64,18 +64,28 @@ html, body, #mapDiv {
     margin:auto 0
 }
 
-/*#footer {
-    position: relative;
-    background-color: #3B5786;
-    margin-top: -150px;
-    height: 175px;
-    clear:both;
-}*/
+#footer {
 
-.scroll {
-    max-width: 100%;
-    overflow: scroll;
+    position:  relative;
+
+    margin-top:  -80px;
+
+    height:  150px;
+    color: #fff;
+    background-color:#3B5786;
+
+    clear: both;
+    z-index: 20;
+
 }
+.toggle{
+    text-align: center;
+}
+.opened{
+    margin-top: -150px !important;
+}
+
+
 
 .esriPopup {
     position: absolute;
