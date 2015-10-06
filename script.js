@@ -43,9 +43,12 @@ $(document).ready(function(){
             csv.show();
         }
     });
+    $("#footer").click(function(){
+        $(this).toggleClass("opened")
+    })
 });
 
-
+/*
     function loadJSON(callback) {
 console.log("here");
         var xobj = new XMLHttpRequest();
@@ -105,3 +108,4 @@ console.log("here");
 
     }
 
+*/
