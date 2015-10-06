@@ -6,7 +6,8 @@
 	<title>The Ruskin Journey</title>
     <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
 	<script src="http://js.arcgis.com/3.14/"></script>
-	<link rel = "stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel = "stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="script.js"></script>
 
@@ -47,7 +48,20 @@
 		</div>
 	</div>
     <div id="footer">
-        <canvas id="tutorial" width="150" height="150"></canvas>
+        <div class="toggle"><i class="fa fa-arrow-up"></i></div>
+        <div class= "timeline">
+
+        </div>
     </div>
+
+
+    <div id="mapDiv"></div>
+    <script src="script.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        $("#footer").click(function(){
+            $(this).toggleClass("opened")
+        })
+    </script>
   </body>
 </html>
