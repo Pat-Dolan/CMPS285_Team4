@@ -69,11 +69,12 @@ footer{
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 20;
 }
 
 #footer {
     position: relative;
-    margin-top: 0px;
+    margin-top: 150px;
     height: 20px;
     color: #fff;
     background-color:#3B5786;
@@ -86,6 +87,7 @@ footer{
 }
 .opened{
     margin-top: -150px !important;
+    height: 150px !important;
 }
 
 .esriPopup {
