@@ -80,6 +80,7 @@ $(document).ready(function(){
     $("#footer").click(function(){
         $(this).toggleClass("opened");
     });
+
 });
 
 /*
@@ -143,3 +144,4 @@ console.log("here");
     }
 
 */
+
