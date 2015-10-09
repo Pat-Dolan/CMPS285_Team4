@@ -11,9 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="script.js"></script>
+
   </head>
 
-  <body onload ="int();">
+  <body>
     <div id="mapDiv" class="map">
         <header>
             <div id="header" style="display: block; background-color: #3B5786;">
@@ -46,6 +47,7 @@
         </div>
         <footer>
             <div id="footer">
+
                 <div class="toggle"><i class="fa fa-arrow-up"></i></div>
                 <div class= "timeline">
                     <canvas id="timeline" width="1950" height="230" onload="Shape();">
@@ -53,7 +55,7 @@
                     </canvas>
 
                     <script>
-                    function Shape(x, y, w, h, fill1, fill2, text) {
+                    function Shape(x, y, w, h, fill1, fill2, text, text2, text3) {
                     this.x = x;
                     this.y = y;
                     this.w = w;
@@ -61,6 +63,9 @@
                     this.fill1 = fill1;
                     this.fill2 = fill2;
                     this.text = text;
+                    //Added text
+                    this.text2 =text2;
+                    this.text3 = text3;
                     }
 
                     // get canvas element
@@ -72,24 +77,28 @@
                     var box = new Array("","","","","","","","","");
 
                     // get method to read in "text" data - "TEST"
-                    box[0] = new Shape(15, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST1");
-                    box[1] = new Shape(230, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST2");
-                    box[2] = new Shape(445, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST3");
-                    box[3] = new Shape(660, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST4");
-                    box[4] = new Shape(875, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST5");
-                    box[5] = new Shape(1090, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST6");
-                    box[6] = new Shape(1305, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST7");
-                    box[7] = new Shape(1520, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST8");
-                    box[8] = new Shape(1735, 15, 200, 200, "rgba(95,95,95,0.2)", "#000", "TEST9");
+                    // changed the background and color
+                    box[0] = new Shape(15, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Starting Point", "May 14th, 1833","London");
+                    box[1] = new Shape(230, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Blackheat", "Shooter's Hill");
+                    box[2] = new Shape(445, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 15th, 1833", "Calais");
+                    box[3] = new Shape(660, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Larecouse", "St Omère");
+                    box[4] = new Shape(875, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 16th, 1833", "Cassel");
+                    box[5] = new Shape(1090, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Baileul", "Armentières");
+                    box[6] = new Shape(1305, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 17th, 1833", "Lille");
+                    box[7] = new Shape(1520, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Leuse", "Ath");
+                    box[8] = new Shape(1735, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination","May 18th, 1833", "Brussels");
 
                     context = elem.getContext('2d');
                     for (var i=0; i<box.length; i++) {
                     context.fillStyle = box[i].fill1;
                     context.fillRect(box[i].x, box[i].y, box[i].w, box[i].h);
                     context.fillStyle = box[i].fill2;
-                    context.fillText(box[i].text, 30+box[i].x, 30+box[i].y);
-                    // text location = coordinates with equation (+box[i].x) and (+box[i].y)
+                    context.font = "17px Arial";
+                    context.fillText(box[i].text, 50+box[i].x, 40+box[i].y);
+                    context.fillText(box[i].text2,30+box[i].x, 90+box[i].y);
+                    context.fillText(box[i].text3,30+box[i].x, 120+box[i].y);
 
+                    // text location = coordinates with equation (+box[i].x) and (+box[i].y)
                     }
                     }
 
@@ -97,10 +106,6 @@
 
                 </div>
 
-                <!--<input type="range" min = "1" max="5" step = "1" onchange = "getValue(this.value)"/>
-                <span id="range"></span>
-
-                <canvas id="tutorial" width="1250" height="150"></canvas>-->
             </div>
         </footer>
     </div>
