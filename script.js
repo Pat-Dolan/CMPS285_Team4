@@ -75,9 +75,81 @@ $(document).ready(function(){
         }
     });
 
-    $("#footer").click(function(){
-        $(this).toggleClass("opened");
+    $("#upArrow").click(function(){
+        $("#footer").toggleClass("opened");
     });
 
+    $("#slideLeft").click(function(){
+        var div = $(this);
+        div.animate({width: '45px'},"fast");
+        div.animate({width: '50px'}, "fast");
+        $("#timeline").animate({left: '+=220'});
+    });
+    $("#slideLeft").mouseenter(function(){
+        $(this).css("opacity",1);
+    });
+    $("#slideLeft").mouseleave(function(){
+        $(this).css("opacity",.2);
+    });
+    $("#slideRight").click(function(){
+        var div = $(this);
+        div.animate({width: '45px'},"fast");
+        div.animate({width: '50px'}, "fast");
+        $("#timeline").animate({left: '-=220'}, "slow");
+    });
+    $("#slideRight").mouseenter(function(){
+        $(this).css("opacity",1);
+    });
+    $("#slideRight").mouseleave(function(){
+        $(this).css("opacity",.2);
+    });
 });
 
+function Shape(x, y, w, h, fill1, fill2, text, text2, text3) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.fill1 = fill1;
+    this.fill2 = fill2;
+    this.text = text;
+    //Added text
+    this.text2 =text2;
+    this.text3 = text3;
+}
+
+function createBoxes() {
+// get canvas element
+    var elem = document.getElementById("timeline");
+    var context;
+// check if context exists
+    if (elem.getContext) {
+
+        var box = new Array("", "", "", "", "", "", "", "", "");
+
+        // get method to read in "text" data - "TEST"
+        // changed the background and color
+        box[0] = new Shape(15, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Starting Point", "May 14th, 1833", "London");
+        box[1] = new Shape(230, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Blackheat", "Shooter's Hill");
+        box[2] = new Shape(445, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 15th, 1833", "Calais");
+        box[3] = new Shape(660, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Larecouse", "St Omère");
+        box[4] = new Shape(875, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 16th, 1833", "Cassel");
+        box[5] = new Shape(1090, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Baileul", "Armentières");
+        box[6] = new Shape(1305, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 17th, 1833", "Lille");
+        box[7] = new Shape(1520, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Leuse", "Ath");
+        box[8] = new Shape(1735, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 18th, 1833", "Brussels");
+
+        context = elem.getContext('2d');
+        for (var i = 0; i < box.length; i++) {
+            context.fillStyle = box[i].fill1;
+            context.fillRect(box[i].x, box[i].y, box[i].w, box[i].h);
+            context.fillStyle = box[i].fill2;
+            context.font = "17px Arial";
+            context.fillText(box[i].text, 50 + box[i].x, 40 + box[i].y);
+            context.fillText(box[i].text2, 30 + box[i].x, 90 + box[i].y);
+            context.fillText(box[i].text3, 30 + box[i].x, 120 + box[i].y);
+
+            // text location = coordinates with equation (+box[i].x) and (+box[i].y)
+        }
+    }
+}

@@ -74,20 +74,43 @@ footer{
 
 #footer {
     position: relative;
-    margin-top: 150px;
-    height: 20px;
+    margin-top: -250px;
+    height: 250px;
     color: #fff;
     background-color:#3B5786;
     clear: both;
     z-index: 20;
 
+
 }
+
 .toggle{
     text-align: center;
 }
 .opened{
-    margin-top: -250px !important;
-    height: 250px !important;
+    margin-top: 150px !important;
+    height: 20px !important;
+}
+
+#timeline{
+    position:fixed;
+}
+
+#slideLeft{
+    position: absolute;
+    top: 0px;
+    padding-left: 10px;
+    padding-top: 80px;
+    opacity: .2;
+}
+
+#slideRight {
+    position: absolute;
+    top: 0px;
+    right:0px;
+    padding-right: 10px;
+    padding-top: 80px;
+    opacity: .2;
 }
 
 .esriPopup {
