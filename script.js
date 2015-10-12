@@ -40,6 +40,7 @@ require(["esri/map",
   layer2.setInfoTemplate(template2);
   map.addLayer(layer2);
 
+  /*
   layer3 = new CSVLayer("", {  });
   var marker3 = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 20, 20);
   var renderer3 = new SimpleRenderer(marker3);
@@ -47,6 +48,7 @@ require(["esri/map",
   var template3 = new InfoTemplate("${type}", "${place}");
   layer2.setInfoTemplate(template3);
   map.addLayer(layer3);
+   */
 
 });
 
@@ -67,6 +69,7 @@ $(document).ready(function(){
         }
     });
 
+    /*
     $("#layer3").click(function(){
         if (layer3.visible == true){
             layer3.hide();
@@ -74,6 +77,7 @@ $(document).ready(function(){
             layer3.show();
         }
     });
+    */
 
     $("#upArrow").click(function(){
         $("#footer").toggleClass("opened");
@@ -132,9 +136,9 @@ function createBoxes() {
         box[0] = new Shape(15, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Starting Point", "May 14th, 1833", "London");
         box[1] = new Shape(230, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Blackheat", "Shooter's Hill");
         box[2] = new Shape(445, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 15th, 1833", "Calais");
-        box[3] = new Shape(660, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Larecouse", "St Omère");
+        box[3] = new Shape(660, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Larecouse", "St OmÃ¨re");
         box[4] = new Shape(875, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 16th, 1833", "Cassel");
-        box[5] = new Shape(1090, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Baileul", "Armentières");
+        box[5] = new Shape(1090, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Baileul", "ArmentiÃ¨res");
         box[6] = new Shape(1305, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 17th, 1833", "Lille");
         box[7] = new Shape(1520, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Leuse", "Ath");
         box[8] = new Shape(1735, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 18th, 1833", "Brussels");
