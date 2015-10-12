@@ -87,7 +87,7 @@ $(document).ready(function(){
         var div = $(this);
         div.animate({width: '45px'},"fast");
         div.animate({width: '50px'}, "fast");
-        $("#timeline").animate({left: '+=220'});
+        $("#timeline").animate({left: '+=215'});
     });
     $("#slideLeft").mouseenter(function(){
         $(this).css("opacity",1);
@@ -99,7 +99,7 @@ $(document).ready(function(){
         var div = $(this);
         div.animate({width: '45px'},"fast");
         div.animate({width: '50px'}, "fast");
-        $("#timeline").animate({left: '-=220'}, "slow");
+        $("#timeline").animate({left: '-=215'}, "slow");
     });
     $("#slideRight").mouseenter(function(){
         $(this).css("opacity",1);
@@ -157,3 +157,78 @@ function createBoxes() {
         }
     }
 }
+
+/*function createLinks() {
+
+    var canvas = document.getElementById('timeline');
+    var context = canvas.getContext("2d");
+    var Links = new Array();
+    var box = new Array();
+    var hoverLink;
+
+    function drawLink(x, y, href, title) {
+        var linkTitle = title,
+            linkX = x,
+            linkY = y,
+            linkWidth = context.measureText(linkTitle).width,
+            linkHeight = parseInt(context.font);
+
+        context.font = "10.5px Arial";
+        context.fillText(linkTitle, linkX, linkY);
+
+        canvas.addEventListener("mousemove", on_mousemove, false);
+        canvas.addEventListener("click", on_click, false);
+
+        Links.push(x + ";" + y + ";" + linkWidth + ";" + linkHeight + ";" + href);
+    }
+
+    function on_mousemove (ev) {
+        var x, y;
+        // Get the mouse position relative to the canvas element
+        if (ev.layerX || ev.layerX == 0) { // For Firefox
+            x = ev.layerX;
+            y = ev.layerY;
+        }
+
+        for (var i = Links.length - 1; i >= 0; i--) {
+            var params = new Array();
+
+            // Get link params back from array
+            params = Links[i].split(";");
+
+            var linkX = parseInt(params[0]),
+                linkY = parseInt(params[1]),
+                linkWidth = parseInt(params[2]),
+                linkHeight = parseInt(params[3]),
+                linkHref = params[4];
+
+            // Check if cursor is in the link area
+            if (x >= linkX && x <= (linkX + linkWidth) && y >= linkY && y <= (linkY + linkHeight)){
+                document.body.style.cursor = "pointer";
+                hoverLink = linkHref;
+                break;
+            }
+            else {
+                document.body.style.cursor = "";
+                hoverLink = "";
+            }
+        };
+    }
+
+    function on_click(e) {
+        if (hoverLink) {
+            window.open(hoverLink);
+        }
+    }
+
+    box[0] = new drawLink(45,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[1] = new drawLink(260,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[2] = new drawLink(475,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[3] = new drawLink(690,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[4] = new drawLink(905,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[5] = new drawLink(1120,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[6] = new drawLink(1335,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[7] = new drawLink(1550,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[8] = new drawLink(1765,190,"http://southeastern.edu/","MORE INFORMATION");
+
+}*/

@@ -193,4 +193,20 @@ fieldset{
 	background-color: #3B5786;
 }
 
+#blanket {
+    background-color: #000000;
+    opacity: 0.4;
+    position: absolute;
+    z-index: 9001;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
 
+#popUp {
+    position: absolute;
+    background-color: #ffffff;
+    width: 500px;
+    height: 500px;
+    z-index: 9002;
+}
