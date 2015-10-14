@@ -22,6 +22,10 @@ html, body, map, #mapDiv {
     padding-left: 10px;
 }
 
+image{
+	cursor: pointer; cursor: hand;
+}
+
 #HomeButton {
     position: absolute;
     top: 150px;
