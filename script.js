@@ -81,6 +81,7 @@ $(document).ready(function(){
 
     $("#upArrow").click(function(){
         $("#footer").toggleClass("opened");
+		$("i").toggleClass("fa-arrow-down")
     });
 
     $("#slideLeft").click(function(){
