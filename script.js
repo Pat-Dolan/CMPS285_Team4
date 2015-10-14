@@ -5,12 +5,14 @@ var layer1,layer2,layer3;
 
 require(["esri/map",
     "esri/dijit/HomeButton",
-    "esri/layers/CSVLayer",
+	"esri/dijit/BasemapLayer",//adds basemap to layer
+    "esri/dijit/Basemap",
+	"esri/layers/CSVLayer",
     "esri/symbols/PictureMarkerSymbol",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
-], function(Map, HomeButton, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
   map = new Map("mapDiv", {
     center: [1.868956,50.9518855],
     zoom: 3,
@@ -20,6 +22,17 @@ require(["esri/map",
   home = new HomeButton({map: map
   }, "HomeButton");
   home.startup();
+ 
+  /*basemap layer
+  var layer = new BasemapLayer({
+	  url:"http:http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
+  });
+  var basemap = new Basemap({
+	  layers:[layer],
+	  title:"Ruskin's map",
+	  //thumbnailUrl: to show the image in thumbnail form in the gallery
+  });
+  basemapGallery.add(basemap);*/
 
 //this CSV file will be our own
   layer1 = new CSVLayer("2.5_week.csv", {
@@ -80,8 +93,8 @@ $(document).ready(function(){
     */
 
     $("#upArrow").click(function(){
+		$("i").toggleClass("fa-arrow-down");		
         $("#footer").toggleClass("opened");
-		$("i").toggleClass("fa-arrow-down")
     });
 
     $("#slideLeft").click(function(){

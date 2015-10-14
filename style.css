@@ -25,6 +25,9 @@ html, body, map, #mapDiv {
 image{
 	cursor: pointer; cursor: hand;
 }
+i{
+	cursor:pointer; cursor: hand;
+}
 
 #HomeButton {
     position: absolute;
