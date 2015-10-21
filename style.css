@@ -15,8 +15,8 @@ html, body, map, #mapDiv {
 
 #header .textArea .title {
     position: relative;
-    font-family: open_sanssemibold,sans-serif;
-    font-size: 20px;
+    font-family: open_sanssemibold,serif;
+    font-size: 25px;
     font-weight: 400;
     padding-top: 5px;
     padding-left: 10px;
