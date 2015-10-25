@@ -101,7 +101,7 @@ $(document).ready(function(){
         var div = $(this);
         div.animate({width: '45px'},"fast");
         div.animate({width: '50px'}, "fast");
-        $("#timeline").animate({left: '+=215'});
+        $("#timeline").animate({left: '+=185'});
     });
     $("#slideLeft").mouseenter(function(){
         $(this).css("opacity",1);
@@ -113,7 +113,7 @@ $(document).ready(function(){
         var div = $(this);
         div.animate({width: '45px'},"fast");
         div.animate({width: '50px'}, "fast");
-        $("#timeline").animate({left: '-=215'}, "slow");
+        $("#timeline").animate({left: '-=185'}, "slow");
     });
     $("#slideRight").mouseenter(function(){
         $(this).css("opacity",1);
@@ -147,32 +147,33 @@ function createBoxes() {
 
         // get method to read in "text" data - "TEST"
         // changed the background and color
-        box[0] = new Shape(15, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Starting Point", "May 14th, 1833", "London");
-        box[1] = new Shape(230, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Blackheat", "Shooter's Hill");
-        box[2] = new Shape(445, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 15th, 1833", "Calais");
-        box[3] = new Shape(660, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Larecouse", "St Omère");
-        box[4] = new Shape(875, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 16th, 1833", "Cassel");
-        box[5] = new Shape(1090, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Baileul", "Armentières");
-        box[6] = new Shape(1305, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 17th, 1833", "Lille");
-        box[7] = new Shape(1520, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Leuse", "Ath");
-        box[8] = new Shape(1735, 15, 200, 200, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 18th, 1833", "Brussels");
+        box[0] = new Shape(15, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Starting Point", "May 14th, 1833", "London");
+        box[1] = new Shape(190, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Blackheat", "Shooter's Hill");
+        box[2] = new Shape(365, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 15th, 1833", "Calais");
+        box[3] = new Shape(540, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Larecouse", "St Omère");
+        box[4] = new Shape(715, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 16th, 1833", "Cassel");
+        box[5] = new Shape(890, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Baileul", "Armentières");
+        box[6] = new Shape(1065, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 17th, 1833", "Lille");
+        box[7] = new Shape(1240, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Pass Through", "Leuse", "Ath");
+        box[8] = new Shape(1415, 15, 160, 160, "rgba(0,0,0,0.5)", "#FFF", "Destination", "May 18th, 1833", "Brussels");
 
         context = elem.getContext('2d');
         for (var i = 0; i < box.length; i++) {
             context.fillStyle = box[i].fill1;
             context.fillRect(box[i].x, box[i].y, box[i].w, box[i].h);
             context.fillStyle = box[i].fill2;
-            context.font = "17px Arial";
-            context.fillText(box[i].text, 50 + box[i].x, 40 + box[i].y);
-            context.fillText(box[i].text2, 30 + box[i].x, 90 + box[i].y);
-            context.fillText(box[i].text3, 30 + box[i].x, 120 + box[i].y);
+            context.font = "bold 17px serif";
+            context.fillText(box[i].text, 20 + box[i].x, 30 + box[i].y);
+            context.font = "14px Arial";
+            context.fillText(box[i].text2, 20 + box[i].x, 75 + box[i].y);
+            context.fillText(box[i].text3, 20 + box[i].x, 100 + box[i].y);
 
             // text location = coordinates with equation (+box[i].x) and (+box[i].y)
         }
     }
 }
 
-/*function createLinks() {
+function createLinks() {
 
     var canvas = document.getElementById('timeline');
     var context = canvas.getContext("2d");
@@ -235,14 +236,14 @@ function createBoxes() {
         }
     }
 
-    box[0] = new drawLink(45,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[1] = new drawLink(260,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[2] = new drawLink(475,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[3] = new drawLink(690,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[4] = new drawLink(905,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[5] = new drawLink(1120,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[6] = new drawLink(1335,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[7] = new drawLink(1550,190,"http://southeastern.edu/","MORE INFORMATION");
-    box[8] = new drawLink(1765,190,"http://southeastern.edu/","MORE INFORMATION");
+    box[0] = new drawLink(45,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[1] = new drawLink(220,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[2] = new drawLink(395,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[3] = new drawLink(570,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[4] = new drawLink(745,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[5] = new drawLink(920,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[6] = new drawLink(1095,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[7] = new drawLink(1270,160,"http://southeastern.edu/","MORE INFORMATION");
+    box[8] = new drawLink(1445,160,"http://southeastern.edu/","MORE INFORMATION");
 
-}*/
+}

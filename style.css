@@ -81,16 +81,14 @@ footer{
 
 #footer {
     position: relative;
-    margin-top: -250px;
-    height: 250px;
+    margin-top: -150px;
+    height: 210px;
     color: #fff;
     background-color:#3B5786;
     clear: both;
     transition-property: all;
     transition: .7s;
     z-index: 20;
-
-
 }
 
 .toggle{
