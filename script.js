@@ -1,9 +1,11 @@
 var map;
 var home;
 var layer1,layer2,layer3;
+var s;
 
 
 require(["esri/map",
+    "esri/dijit/Search",
     "esri/dijit/HomeButton",
 	"esri/dijit/BasemapLayer",//adds basemap to layer
     "esri/dijit/Basemap",
@@ -12,7 +14,7 @@ require(["esri/map",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
-], function(Map, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map,Search, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
   map = new Map("mapDiv", {
     center: [1.868956,50.9518855],
     zoom: 3,
@@ -22,7 +24,11 @@ require(["esri/map",
   home = new HomeButton({map: map
   }, "HomeButton");
   home.startup();
- 
+
+    s = new Search({
+        map: map
+    }, "search");
+    s.startup();
   /*basemap layer
   var layer = new BasemapLayer({
 	  url:"http:http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"

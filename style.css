@@ -215,3 +215,11 @@ fieldset{
     height: 500px;
     z-index: 9002;
 }
+
+#search {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 80px;
+    left: 74px;
+}
