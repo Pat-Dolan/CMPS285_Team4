@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>The Ruskin Journey</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://openlayers.org/en/v3.10.1/css/ol.css" type="text/css">
+    <link rel = "stylesheet" href="style.css">
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://openlayers.org/en/v3.10.1/build/ol.js"></script>
+	<script src="stuff.js"></script>
+  </head>
+
+  <body>
+      <div id ="search"></div>   
+      <div id="map" ></div>
+        <header>
+            <div id="header" style="display: block; background-color: #3B5786;">
+                <div class="rightArea">
+                    <div class="logo">
+                        <a href="http://english.selu.edu/humanitiesonline/ruskin/apparatuses/account_of_a_tour_on_the_continent_apparatus.php" target="_blank" style="cursor: default;">
+                            <img alt="Map Tour Logo" class="headerLogoImg" src="http://i446.photobucket.com/albums/qq183/coryclapp/ruskin_logo_zpsz32unfpj.jpg">
+                        </a>
+                    </div>
+                </div>
+               <!-- <div class="textArea" style="width: 829px;">
+                    <h1 class="title" tabindex="0">The Ruskin Journey</h1>
+                </div>-->
+            </div>
+        </header>
+        <div id="HomeButton"></div>
+        <div class ="rightPane">
+            <div class="legend">
+                <form>
+                    <fieldset>
+                        <legend> Perspective </legend>
+                        <input type="checkbox" id="layer1" checked> Mary and John
+                        <br>
+                        <input type="checkbox" id="layer2" checked> Ruskin
+                        <br>
+                        <!--<input type="checkbox" id="layer3" checked> Witness-->
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <div id="footer">
+                <div class="toggle"><i class="fa fa-arrow-down fa-arrow-up ::before" id="upArrow"></i></div>
+                <div class= "timeline">
+                    <canvas id="timeline" width="1950" height="205">
+                    Your browser doesn't support canvas.
+                    </canvas>
+                    <script>createBoxes()</script>
+                    <script>createLinks()</script>
+                </div>
+                <img id="slideLeft" src="resources/icons/picturepanel-left2.png" alt="Left" width="50" height="100">
+                <img id="slideRight" src="resources/icons/picturepanel-right2.png" alt="Left" width="50" height="100">
+            </div>
+        </footer>
+	<script src="test.js"></script>
+  </body>
+</html>
