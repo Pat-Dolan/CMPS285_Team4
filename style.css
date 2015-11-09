@@ -82,7 +82,7 @@ footer{
 #footer {
     position: relative;
     margin-top: -150px;
-    height: 210px;
+    height: 150px;
     color: #fff;
     background-color:#3B5786;
     clear: both;
@@ -101,23 +101,27 @@ footer{
 
 #timeline{
     position:fixed;
+    width: 100%;
+    height: inherit;
 }
 
 #slideLeft{
     position: absolute;
     top: 0px;
-    padding-left: 10px;
-    padding-top: 80px;
-    opacity: .2;
+    padding-left: 20px;
+    padding-top: 50px;
+    opacity: .5;
+    z-index: 20;
 }
 
 #slideRight {
     position: absolute;
     top: 0px;
     right:0px;
-    padding-right: 10px;
-    padding-top: 80px;
-    opacity: .2;
+    padding-right: 20px;
+    padding-top: 50px;
+    opacity: .5;
+    z-index: 20;
 }
 
 .esriPopup {
@@ -222,4 +226,56 @@ fieldset{
     z-index: 2;
     top: 80px;
     left: 74px;
+}
+
+.box {
+    display: inline-block;
+    position: relative;
+    top:0px;
+    margin-right: 10px;
+    background-color:#172133;
+    width: 0px;
+    height: 80px;
+    padding: 15px;
+    transition: width 1s;
+    -webkit-transition: width 2s; /* Safari 3.1 to 6.0 */
+
+}
+
+.box:hover
+{
+    height: 90px;
+    top:-5px;
+}
+
+#container{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    left: 115px;
+    top:0px;
+}
+
+#grad1{
+    position: absolute;
+    top:-10px;
+    width:13%;
+    height:inherit;
+    z-index: 10;
+    background: -webkit-linear-gradient(left, #3B5786 15%, rgba(0,0,0,0)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #3B5786 15%, rgba(0,0,0,0)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #3B5786 15%, rgba(0,0,0,0)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right,#3B5786 15%, rgba(0,0,0,0)); /* Standard syntax (must be last) */
+}
+#grad2{
+    position: absolute;
+    right: 0px;
+    top:-10px;
+    width:13%;
+    height:inherit;
+    z-index: 10;
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0), #3B5786 85%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(0,0,0,0), #3B5786 85%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(0,0,0,0), #3B5786 85%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(0,0,0,0) , #3B5786 85%); /* Standard syntax (must be last) */
 }
