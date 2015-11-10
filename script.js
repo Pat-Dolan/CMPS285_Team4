@@ -48,7 +48,7 @@ require(["esri/map",
   }, "HomeButton");
   home.startup();
 
-    var myFeatureSet = new FeatureSet(jsonData);
+   /* var myFeatureSet = new FeatureSet(jsonData);
 
     console.log(myFeatureSet);
 
@@ -224,7 +224,7 @@ $(document).ready(function(){
     });
 });
 
-function createboxes(){
+function createBoxes(){
     var i;
     var element = document.getElementById("container");
 
@@ -246,8 +246,18 @@ function createboxes(){
 
     var size =  (screen.width/6)*(i);
     element.style.width= size +"px";
-
-
 }
 
+/*function createPopup(){
+    var box = document.getElementsByClassName("box");
+
+    var div = document.createElement("div");
+    var att = document.createAttribute("id")
+    att.value = "popup";
+    div.setAttributeNode(att);
+
+    $(box).click(function () {
+        document.getElementById('div#popup').style.display = 'block';
+    });
+}*/
 
