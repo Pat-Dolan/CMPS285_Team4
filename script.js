@@ -3,11 +3,31 @@ var home;
 var layer1,layer2,layer3;
 var s;
 
+
 var dojoConfig = {
     parseOnLoad: true
 };
 
+var jsonData;
+
+$.ajax({
+    dataType: "json",
+    url: "data.json",
+    async: false,
+    success: function(data){jsonData = data}
+
+
+});
+
+console.log(jsonData);
+
+
+
+
+
 require(["esri/map",
+    "esri/layers/FeatureLayer",
+    "esri/tasks/FeatureSet",
     "esri/dijit/Search",
     "esri/dijit/HomeButton",
 	"esri/dijit/BasemapLayer",//adds basemap to layer
@@ -17,7 +37,7 @@ require(["esri/map",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
-], function(Map,Search, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map, FeatureLayer , FeatureSet, Search, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
   map = new Map("mapDiv", {
     center: [1.868956,50.9518855],
     zoom: 3,
@@ -28,17 +48,49 @@ require(["esri/map",
   }, "HomeButton");
   home.startup();
 
+    var myFeatureSet = new FeatureSet(jsonData);
 
-  /*basemap layer
-  var layer = new BasemapLayer({
-	  url:"http:http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
-  });
-  var basemap = new Basemap({
-	  layers:[layer],
-	  title:"Ruskin's map",
-	  //thumbnailUrl: to show the image in thumbnail form in the gallery
-  });
-  basemapGallery.add(basemap);*/
+    console.log(myFeatureSet);
+
+    var mylayerDefinition = {
+        "geometryType": "esriGeomtryPoint",
+        "fields": [
+            {
+                "name" : "Name",
+                "type": "esriFieldTypeOID",
+                "alias" : "Name"
+            }
+        ]
+    };
+
+    console.log(mylayerDefinition);
+
+    var featureCollection = {
+        layerDefinition : mylayerDefinition,
+        featureSet : myFeatureSet
+    };
+
+    console.log(featureCollection);
+
+    var featureLayer = new FeatureLayer(featureCollection,{
+        mode : FeatureLayer.MODE_ONDEMAND
+
+    });
+
+    map.addLayer(featureLayer);
+
+    console.log(featureLayer);
+
+    /*basemap layer
+    var layer = new BasemapLayer({
+        url:"http:http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
+    });
+    var basemap = new Basemap({
+        layers:[layer],
+        title:"Ruskin's map",
+        //thumbnailUrl: to show the image in thumbnail form in the gallery
+    });
+    basemapGallery.add(basemap);*/
 
 //this CSV file will be our own
   layer1 = new CSVLayer("2.5_week.csv", {
@@ -59,6 +111,7 @@ require(["esri/map",
   var template2 = new InfoTemplate("${type}", "${place}");
   layer2.setInfoTemplate(template2);
   map.addLayer(layer2);
+
 
 
     s = new Search({
@@ -196,3 +249,5 @@ function createboxes(){
 
 
 }
+
+
