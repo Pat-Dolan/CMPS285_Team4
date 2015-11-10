@@ -3,6 +3,9 @@ var home;
 var layer1,layer2,layer3;
 var s;
 
+var dojoConfig = {
+    parseOnLoad: true
+};
 
 require(["esri/map",
     "esri/dijit/Search",
@@ -25,10 +28,7 @@ require(["esri/map",
   }, "HomeButton");
   home.startup();
 
-    s = new Search({
-        map: map
-    }, "search");
-    s.startup();
+
   /*basemap layer
   var layer = new BasemapLayer({
 	  url:"http:http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
@@ -51,6 +51,7 @@ require(["esri/map",
   layer1.setInfoTemplate(template);
   map.addLayer(layer1);
 
+
   layer2 = new CSVLayer("Ruskin_Stuff.csv", {  });
   var marker2 = new PictureMarkerSymbol("resources/markers/StaticIcon2.png", 20, 20);
   var renderer2 = new SimpleRenderer(marker2);
@@ -58,6 +59,40 @@ require(["esri/map",
   var template2 = new InfoTemplate("${type}", "${place}");
   layer2.setInfoTemplate(template2);
   map.addLayer(layer2);
+
+
+    s = new Search({
+        enableButtonMode: true, //this enables the search widget to display as a single button
+        enableLabel: false,
+        enableInfoWindow: true,
+        showInfoWindowOnSelect: false,
+        map: map,
+        sources: [],
+        zoomScale : 5000000
+    }, "search");
+
+        var sources = s.get("sources");
+
+        sources.push({
+
+            CSVLayer: new CSVLayer("Ruskin_Stuff.csv", {  }),
+            infoTemplate: new InfoTemplate("${type}", "${place}"),
+            enableSuggestions: true,
+            placeholder: "Spain",
+            enableLabel: false,
+            searchFields: ["place"],
+            displayField: "place",
+            name: "Ruskin",
+            maxSuggestions: 2,
+            exactMatch: false
+
+        });
+        //Set the sources above to the search widget
+        s.set("sources", sources);
+
+    s.startup();
+
+});
 
   /*
   layer3 = new CSVLayer("", {  });
@@ -69,7 +104,7 @@ require(["esri/map",
   map.addLayer(layer3);
    */
 
-});
+
 
 $(document).ready(function(){
     $("#layer1").click(function(){

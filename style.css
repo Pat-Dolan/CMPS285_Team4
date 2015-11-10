@@ -4,6 +4,22 @@ html, body, .map{
     height: 100%;
   }
 
+#info {
+    top: 80px;
+    color: #fff;
+    height: auto;
+    font-family: arial;
+    font-weight: bold;
+    left: 69px;
+    margin: 5px;
+    padding: 10px;
+    position: absolute;
+    width: 260px;
+    z-index: 40;
+    border: solid 1px #003300;
+    border-radius: 4px;
+    background-color: #3B5786;
+}
 
 #header{
     height:60px;
@@ -224,7 +240,7 @@ fieldset{
     display: block;
     position: absolute;
     z-index: 2;
-    top: 80px;
+    top: 130px;
     left: 74px;
 }
 
