@@ -200,10 +200,20 @@ $(document).ready(function(){
 
     $("#slideLeft").click(function(){
         var div = $(this);
-        div.animate({width: '25px'},"fast");
-        div.animate({width: '30px'}, "fast");
-        $("#container").animate({left: "+=" + screen.width/6});
+
+        var rect = document.getElementById("container").getBoundingClientRect();
+        console.log(rect.left);
+        if(rect.left > 0){
+            $("#container").animate({left: "+=" + 20},"fast");
+            $("#container").animate({left: "-=" + 30},"fast");
+            $("#container").animate({left: "+=" + 10},"fast");
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container").animate({left: "+=" + ((window.innerWidth-110)/6)});
+        }
     });
+
     $("#slideLeft").mouseenter(function(){
         $(this).css("opacity",1);
     });
@@ -212,10 +222,20 @@ $(document).ready(function(){
     });
     $("#slideRight").click(function(){
         var div = $(this);
-        div.animate({width: '25px'},"fast");
-        div.animate({width: '30px'}, "fast");
-        $("#container").animate({left: "-=" + screen.width/6}, "slow");
+
+        var rect = document.getElementById("container").getBoundingClientRect();
+        console.log(rect.left);
+        if(rect.right < window.innerWidth-30){
+            $("#container").animate({left: "-=" + 20},"fast");
+            $("#container").animate({left: "+=" + 30},"fast");
+            $("#container").animate({left: "-=" + 10},"fast");
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container").animate({left: "-=" + ((window.innerWidth-110)/6)});
+        }
     });
+
     $("#slideRight").mouseenter(function(){
         $(this).css("opacity",1);
     });
@@ -241,10 +261,10 @@ function createBoxes(){
         div.appendChild(node);
         element.appendChild(div);
         var elementbox = document.getElementById("box"+i);
-        elementbox.style.width = screen.width/6-40 +"px";
+        elementbox.style.width = ((window.innerWidth-110)/6)-40 +"px";
     }
 
-    var size =  (screen.width/6)*(i);
+    var size =  (((window.innerWidth-110)/6))*(i);
     element.style.width= size +"px";
 }
 
