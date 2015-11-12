@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel = "stylesheet" href="style.css">
     <script src="http://js.arcgis.com/3.14/"></script>
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="script.js"></script>
   </head>
 
@@ -26,13 +26,15 @@
             <div id="header" style="display: block; background-color: #3B5786;">
                 <div class="rightArea">
                     <div class="logo">
-                        <a href="http://english.selu.edu/humanitiesonline/ruskin/apparatuses/account_of_a_tour_on_the_continent_apparatus.php" target="_blank" style="cursor: default;">
-                            <img alt="Map Tour Logo" class="headerLogoImg" src="http://i446.photobucket.com/albums/qq183/coryclapp/ruskin_logo_zpsz32unfpj.jpg">
+                        <a href="http://english.selu.edu/humanitiesonline/ruskin/apparatuses/account_of_a_tour_on_the_continent_apparatus.php" target="_blank" style="cursor: pointer;">
+                            <img alt="Map Tour Logo" class="headerLogoImg"
+                                 src="http://i446.photobucket.com/albums/qq183/coryclapp/ruskin_logo_zpsz32unfpj.jpg">
                         </a>
                     </div>
                 </div>
                 <div class="textArea" style="width: 829px;">
-                    <h1 class="title" tabindex="0">The Ruskin Journey</h1>
+                    <h1 class="title" tabindex="0" style = "position:fixed; top:-15px; font-size: xx-large;">The Ruskin
+                        Journey</h1>
                 </div>
             </div>
         </header>
@@ -58,7 +60,6 @@
                     <div id="grad1"></div>
                     <div id = "container">
                         <script>createBoxes()</script>
-                        <script>createPopup()</script>
                     </div>
                     <div id="grad2"></div>
                 </div>

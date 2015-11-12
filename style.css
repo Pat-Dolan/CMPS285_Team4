@@ -247,7 +247,7 @@ fieldset{
 .box {
     display: inline-block;
     position: relative;
-    top:0px;
+    top:5px;
     margin-right: 10px;
     background-color:#172133;
     width: 0px;
@@ -262,7 +262,7 @@ fieldset{
 .box:hover
 {
     height: 90px;
-    top:-5px;
+    top:0px;
 }
 
 #container{
@@ -297,9 +297,11 @@ fieldset{
     height:380px;
     width:340px;
     margin: 0 auto;
-    position:relative;
+    position:fixed;
+    top: 20%;
+    left: 35%;
     z-index:10;
-    display:none;
+    display:block;
     background-color: #3B5786;
 }
 

@@ -200,9 +200,7 @@ $(document).ready(function(){
 
     $("#slideLeft").click(function(){
         var div = $(this);
-
         var rect = document.getElementById("container").getBoundingClientRect();
-        console.log(rect.left);
         if(rect.left > 0){
             $("#container").animate({left: "+=" + 20},"fast");
             $("#container").animate({left: "-=" + 30},"fast");
@@ -210,7 +208,7 @@ $(document).ready(function(){
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
-            $("#container").animate({left: "+=" + ((window.innerWidth-110)/6)});
+            $("#container").animate({left: "+=" + ((window.innerWidth-110)/5)});
         }
     });
 
@@ -222,9 +220,7 @@ $(document).ready(function(){
     });
     $("#slideRight").click(function(){
         var div = $(this);
-
         var rect = document.getElementById("container").getBoundingClientRect();
-        console.log(rect.left);
         if(rect.right < window.innerWidth-30){
             $("#container").animate({left: "-=" + 20},"fast");
             $("#container").animate({left: "+=" + 30},"fast");
@@ -232,7 +228,7 @@ $(document).ready(function(){
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
-            $("#container").animate({left: "-=" + ((window.innerWidth-110)/6)});
+            $("#container").animate({left: "-=" + ((window.innerWidth-110)/5)});
         }
     });
 
@@ -242,6 +238,14 @@ $(document).ready(function(){
     $("#slideRight").mouseleave(function(){
         $(this).css("opacity",.5);
     });
+
+    $(".box").click(function(){
+        var id = (this).getAttribute("id");
+        console.log(id);
+        createPopup(id);
+    });
+
+
 });
 
 function createBoxes(){
@@ -261,23 +265,24 @@ function createBoxes(){
         div.appendChild(node);
         element.appendChild(div);
         var elementbox = document.getElementById("box"+i);
-        elementbox.style.width = ((window.innerWidth-110)/6)-40 +"px";
+        elementbox.style.width = ((window.innerWidth-110)/5)-40 +"px";
     }
 
-    var size =  (((window.innerWidth-110)/6))*(i);
+    var size =  (((window.innerWidth-110)/5))*(i);
     element.style.width= size +"px";
 }
 
-/*function createPopup(){
-    var box = document.getElementsByClassName("box");
-
+function createPopup(boxId){
+    //var box = document.getElementById(boxId);
+    //var boxNum = box.substring(3);
     var div = document.createElement("div");
     var att = document.createAttribute("id")
     att.value = "popup";
     div.setAttributeNode(att);
-
-    $(box).click(function () {
-        document.getElementById('div#popup').style.display = 'block';
-    });
-}*/
+    var node = document.createTextNode("Here is a new DIV. " + boxId );
+    div.appendChild(node);
+    //window.open("","","height=300, titlebar = no, resizable = no, menubar=no, scrollbars=no, toolbar=no, width=300");
+    var element = document.body;
+    element.appendChild(div);
+}
 
