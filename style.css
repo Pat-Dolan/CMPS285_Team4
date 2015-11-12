@@ -255,8 +255,6 @@ fieldset{
     padding: 15px;
     transition: width 1s;
     -webkit-transition: width 2s; /* Safari 3.1 to 6.0 */
-
-
 }
 
 .box:hover
@@ -265,12 +263,43 @@ fieldset{
     top:0px;
 }
 
-#container{
+#buttonContainer{
+    width: 300px;
+    height: 30px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 900;
+}
+
+#container1{
     width: 100%;
     height: 80px;
     position: absolute;
     left: 60px;
     top:0px;
+    background-color: red;
+}
+
+#container2{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    left: 60px;
+    top:0px;
+    background-color: green;
+
+}
+
+#container3{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    left: 60px;
+    top:0px;
+    background-color: yellow;
+
+
 }
 
 #grad1{

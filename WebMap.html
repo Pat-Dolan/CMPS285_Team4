@@ -55,11 +55,24 @@
         </div>
         <footer>
             <div id="footer">
-                <div class="toggle"><i class="fa fa-arrow-down fa-arrow-up ::before" id="upArrow" style="opacity: .5"></i></div>
+                <div class="toggle">
+                    <div id="buttonContainer">
+                        <input type="button" class="timeButton" id="timebutton1" value="Timeline 1">
+                        <input type="button" class="timeButton" id="timebutton2" value="Timeline 2">
+                        <input type="button" class="timeButton" id="timebutton3" value="Timeline 3">
+                    </div>
+                    <i class="fa fa-arrow-down fa-arrow-up ::before" id="upArrow" style="opacity: .5"></i>
+                </div>
                 <div id= "timeline">
                     <div id="grad1"></div>
-                    <div id = "container">
-                        <script>createBoxes()</script>
+                    <div class ="container" id = "container1">
+                        <script>createBoxes(container1)</script>
+                    </div>
+                    <div class ="container" id = "container2">
+                        <script>createBoxes(container2)</script>
+                    </div>
+                    <div class ="container" id = "container3">
+                        <script>createBoxes(container3)</script>
                     </div>
                     <div id="grad2"></div>
                 </div>

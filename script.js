@@ -198,6 +198,29 @@ $(document).ready(function(){
         $("#footer").toggleClass("opened");
     });
 
+    $("#timebutton1").click( function() {
+        $("#container1").show();
+        $("#container2").hide();
+        $("#container3").hide();
+
+    });
+
+
+    $("#timebutton2").click( function() {
+        $("#container2").show();
+        $("#container1").hide();
+        $("#container3").hide();
+
+    });
+
+    $("#timebutton3").click( function() {
+        $("#container3").show();
+        $("#container1").hide();
+        $("#container2").hide();
+
+    });
+
+
     $("#slideLeft").click(function(){
         var div = $(this);
         var rect = document.getElementById("container").getBoundingClientRect();
@@ -248,9 +271,9 @@ $(document).ready(function(){
 
 });
 
-function createBoxes(){
+function createBoxes(container){
     var i;
-    var element = document.getElementById("container");
+    var element = document.getElementById(container);
 
     for (i=0; i<8; i++) {
 
