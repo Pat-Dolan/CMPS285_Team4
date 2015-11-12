@@ -223,15 +223,15 @@ $(document).ready(function(){
 
     $("#slideLeft").click(function(){
         var div = $(this);
-        var rect = document.getElementById("container").getBoundingClientRect();
+        var rect = document.getElementById("container1").getBoundingClientRect();
         if(rect.left > 0){
-            $("#container").animate({left: "+=" + 20},"fast");
-            $("#container").animate({left: "-=" + 30},"fast");
-            $("#container").animate({left: "+=" + 10},"fast");
+            $("#container1").animate({left: "+=" + 20},"fast");
+            $("#container1").animate({left: "-=" + 30},"fast");
+            $("#container1").animate({left: "+=" + 10},"fast");
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
-            $("#container").animate({left: "+=" + ((window.innerWidth-110)/5)});
+            $("#container1").animate({left: "+=" + ((window.innerWidth-110)/5)});
         }
     });
 
@@ -243,15 +243,15 @@ $(document).ready(function(){
     });
     $("#slideRight").click(function(){
         var div = $(this);
-        var rect = document.getElementById("container").getBoundingClientRect();
+        var rect = document.getElementById("container1").getBoundingClientRect();
         if(rect.right < window.innerWidth-30){
-            $("#container").animate({left: "-=" + 20},"fast");
-            $("#container").animate({left: "+=" + 30},"fast");
-            $("#container").animate({left: "-=" + 10},"fast");
+            $("#container1").animate({left: "-=" + 20},"fast");
+            $("#container1").animate({left: "+=" + 30},"fast");
+            $("#container1").animate({left: "-=" + 10},"fast");
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
-            $("#container").animate({left: "-=" + ((window.innerWidth-110)/5)});
+            $("#container1").animate({left: "-=" + ((window.innerWidth-110)/5)});
         }
     });
 
@@ -273,7 +273,7 @@ $(document).ready(function(){
 
 function createBoxes(container){
     var i;
-    var element = document.getElementById(container);
+    var element = document.getElementById("container"+container);
 
     for (i=0; i<8; i++) {
 
@@ -281,13 +281,13 @@ function createBoxes(container){
         var att = document.createAttribute("class");
         var att2 = document.createAttribute("id");
         att.value = "box";
-        att2.value = "box"+i;
+        att2.value = "box"+"-"+container + "-"+i;
         div.setAttributeNode(att);
         div.setAttributeNode(att2);
         var node = document.createTextNode("Here is a new DIV.");
         div.appendChild(node);
         element.appendChild(div);
-        var elementbox = document.getElementById("box"+i);
+        var elementbox = document.getElementById("box"+"-"+container + "-"+i);
         elementbox.style.width = ((window.innerWidth-110)/5)-40 +"px";
     }
 
