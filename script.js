@@ -250,12 +250,43 @@ $(document).ready(function(){
         $("#footer").toggleClass("opened");
     });
 
+    $("#timebutton1").click( function() {
+        $("#container1").show();
+        $("#container2").hide();
+        $("#container3").hide();
+
+    });
+
+
+    $("#timebutton2").click( function() {
+        $("#container2").show();
+        $("#container1").hide();
+        $("#container3").hide();
+
+    });
+
+    $("#timebutton3").click( function() {
+        $("#container3").show();
+        $("#container1").hide();
+        $("#container2").hide();
+
+    });
+
+
     $("#slideLeft").click(function(){
         var div = $(this);
-        div.animate({width: '25px'},"fast");
-        div.animate({width: '30px'}, "fast");
-        $("#container").animate({left: "+=" + screen.width/6});
+        var rect = document.getElementById("container").getBoundingClientRect();
+        if(rect.left > 0){
+            $("#container").animate({left: "+=" + 20},"fast");
+            $("#container").animate({left: "-=" + 30},"fast");
+            $("#container").animate({left: "+=" + 10},"fast");
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container").animate({left: "+=" + ((window.innerWidth-110)/5)});
+        }
     });
+
     $("#slideLeft").mouseenter(function(){
         $(this).css("opacity",1);
     });
@@ -264,21 +295,37 @@ $(document).ready(function(){
     });
     $("#slideRight").click(function(){
         var div = $(this);
-        div.animate({width: '25px'},"fast");
-        div.animate({width: '30px'}, "fast");
-        $("#container").animate({left: "-=" + screen.width/6}, "slow");
+        var rect = document.getElementById("container").getBoundingClientRect();
+        if(rect.right < window.innerWidth-30){
+            $("#container").animate({left: "-=" + 20},"fast");
+            $("#container").animate({left: "+=" + 30},"fast");
+            $("#container").animate({left: "-=" + 10},"fast");
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container").animate({left: "-=" + ((window.innerWidth-110)/5)});
+        }
     });
+
     $("#slideRight").mouseenter(function(){
         $(this).css("opacity",1);
     });
     $("#slideRight").mouseleave(function(){
         $(this).css("opacity",.5);
     });
+
+    $(".box").click(function(){
+        var id = (this).getAttribute("id");
+        console.log(id);
+        createPopup(id);
+    });
+
+
 });
 
-function createBoxes(){
+function createBoxes(container){
     var i;
-    var element = document.getElementById("container");
+    var element = document.getElementById(container);
 
     for (i=0; i<8; i++) {
 
@@ -293,13 +340,14 @@ function createBoxes(){
         div.appendChild(node);
         element.appendChild(div);
         var elementbox = document.getElementById("box"+i);
-        elementbox.style.width = screen.width/6-40 +"px";
+        elementbox.style.width = ((window.innerWidth-110)/5)-40 +"px";
     }
 
-    var size =  (screen.width/6)*(i);
+    var size =  (((window.innerWidth-110)/5))*(i);
     element.style.width= size +"px";
 }
 
+<<<<<<< HEAD
 /*function createPopup(){
  var box = document.getElementsByClassName("box");
 
@@ -312,4 +360,19 @@ function createBoxes(){
  document.getElementById('div#popup').style.display = 'block';
  });
  }*/
+=======
+function createPopup(boxId){
+    //var box = document.getElementById(boxId);
+    //var boxNum = box.substring(3);
+    var div = document.createElement("div");
+    var att = document.createAttribute("id")
+    att.value = "popup";
+    div.setAttributeNode(att);
+    var node = document.createTextNode("Here is a new DIV. " + boxId );
+    div.appendChild(node);
+    //window.open("","","height=300, titlebar = no, resizable = no, menubar=no, scrollbars=no, toolbar=no, width=300");
+    var element = document.body;
+    element.appendChild(div);
+}
+>>>>>>> origin/master
 
