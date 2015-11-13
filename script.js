@@ -346,8 +346,6 @@ function createBoxes(container){
     var size =  (((window.innerWidth-110)/5))*(i);
     element.style.width= size +"px";
 }
-
-<<<<<<< HEAD
 /*function createPopup(){
  var box = document.getElementsByClassName("box");
 
@@ -360,7 +358,6 @@ function createBoxes(container){
  document.getElementById('div#popup').style.display = 'block';
  });
  }*/
-=======
 function createPopup(boxId){
     //var box = document.getElementById(boxId);
     //var boxNum = box.substring(3);
@@ -374,5 +371,4 @@ function createPopup(boxId){
     var element = document.body;
     element.appendChild(div);
 }
->>>>>>> origin/master
 
