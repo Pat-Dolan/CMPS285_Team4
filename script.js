@@ -93,11 +93,11 @@ require(["esri/map",
 	
 	map.on("load", function(){
 		console.log("made it to the load function");
-		requestData();
+		//requestData();
 	});
 	map.addLayer([featureLayer]);
 	
-    function requestData(){
+   /* function requestData(){
 		console.log("made it to request data");
         var requestHandle = esriRequest({
             url: "AllPoints.json",
@@ -131,7 +131,7 @@ require(["esri/map",
     function requestFailed(error) {
         console.log('failed');
     }
-
+	*/
 
     /*basemap layer
      var layer = new BasemapLayer({
