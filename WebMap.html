@@ -5,13 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>The Ruskin Journey</title>
+      <link rel="shortcut icon" href="http://i446.photobucket.com/albums/qq183/coryclapp/ruskin_logo_zpsz32unfpj.jpg" type="image/png"/>
     <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel = "stylesheet" href="style.css">
     <script src="http://js.arcgis.com/3.14/"></script>
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="script.js"></script>
   </head>
 
@@ -22,13 +23,15 @@
             <div id="header" style="display: block; background-color: #3B5786;">
                 <div class="rightArea">
                     <div class="logo">
-                        <a href="http://english.selu.edu/humanitiesonline/ruskin/apparatuses/account_of_a_tour_on_the_continent_apparatus.php" target="_blank" style="cursor: default;">
-                            <img alt="Map Tour Logo" class="headerLogoImg" src="http://i446.photobucket.com/albums/qq183/coryclapp/ruskin_logo_zpsz32unfpj.jpg">
+                        <a href="http://english.selu.edu/humanitiesonline/ruskin/apparatuses/account_of_a_tour_on_the_continent_apparatus.php" target="_blank" style="cursor: pointer;">
+                            <img alt="Map Tour Logo" class="headerLogoImg"
+                                 src="http://i446.photobucket.com/albums/qq183/coryclapp/ruskin_logo_zpsz32unfpj.jpg">
                         </a>
                     </div>
                 </div>
                 <div class="textArea" style="width: 829px;">
-                    <h1 class="title" tabindex="0">The Ruskin Journey</h1>
+                    <h1 class="title" tabindex="0" style = "position:fixed; top:-15px; font-size: xx-large;">The Ruskin
+                        Journey</h1>
                 </div>
             </div>
         </header>
@@ -50,10 +53,16 @@
         </div>
         <footer>
             <div id="footer">
-                <div class="toggle"><i class="fa fa-arrow-down fa-arrow-up ::before" id="upArrow" style="opacity: .5"></i></div>
+                <div class="toggle">
+                    <div id="buttonContainer">
+                        <input type="button" class="timeButton" id="timebutton1" value="Timeline 1">
+                        <input type="button" class="timeButton" id="timebutton2" value="Timeline 2">
+                        <input type="button" class="timeButton" id="timebutton3" value="Timeline 3">
+                    </div>
+                    <i class="fa fa-arrow-down fa-arrow-up ::before" id="upArrow" style="opacity: .5"></i>
+                </div>
                 <div id= "timeline">
                     <div id="grad1"></div>
-<<<<<<< HEAD
                     <div class ="container" id = "container1">
                         <script>createBoxes(1)</script>
                     </div>
@@ -62,11 +71,6 @@
                     </div>
                     <div class ="container" id = "container3">
                         <script>createBoxes(3)</script>
-=======
-                    <div id = "container">
-                        <script>createBoxes()</script>
-                        <script>createPopup()</script>
->>>>>>> origin/master
                     </div>
                     <div id="grad2"></div>
                 </div>
