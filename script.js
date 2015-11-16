@@ -90,20 +90,21 @@ require(["esri/map",
         id:"RuskinLayer",
         mode: FeatureLayer.MODE_SNAPSHOT
     });
-	
-	map.on("load", function(){
-		console.log("made it to the load function");
-		//requestData();
-	});
 	map.addLayer([featureLayer]);
 	
-   /* function requestData(){
+	map.on("layers-add-result", function(result){
+		console.log("made it to the load function");
+		requestData();
+	});
+	
+	
+   function requestData(){
 		console.log("made it to request data");
         var requestHandle = esriRequest({
             url: "AllPoints.json",
 			handleAs: "json",
 			timeout: 0,			
-            callbackParamName: "callback"
+            callbackParamName: "jsoncallback"
         });
 		console.log("made it to past the handleEvent");
         requestHandle.then(requestSucceeded, requestFailed);
@@ -131,7 +132,7 @@ require(["esri/map",
     function requestFailed(error) {
         console.log('failed');
     }
-	*/
+	
 
     /*basemap layer
      var layer = new BasemapLayer({
@@ -325,7 +326,7 @@ $(document).ready(function(){
 
 function createBoxes(container){
     var i;
-    var element = document.getElementById(container);
+    var element = document.getElementById("container");
 
     for (i=0; i<8; i++) {
 
