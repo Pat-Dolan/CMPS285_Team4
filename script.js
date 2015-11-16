@@ -90,6 +90,7 @@ require(["esri/map",
         id:"RuskinLayer",
         mode: FeatureLayer.MODE_SNAPSHOT
     });
+<<<<<<< HEAD
 	
 	map.on("load", function(){
 		console.log("made it to the load function");
@@ -98,17 +99,33 @@ require(["esri/map",
 	map.addLayer([featureLayer]);
 	
    /* function requestData(){
+=======
+	map.addLayer([featureLayer]);
+	
+	map.on("layers-add-result", function(result){
+		console.log("made it to the load function");
+		requestData();
+	});
+	
+	
+   function requestData(){
+>>>>>>> origin/master
 		console.log("made it to request data");
         var requestHandle = esriRequest({
             url: "AllPoints.json",
 			handleAs: "json",
 			timeout: 0,			
+<<<<<<< HEAD
             callbackParamName: "callback"
+=======
+            callbackParamName: "jsoncallback"
+>>>>>>> origin/master
         });
 		console.log("made it to past the handleEvent");
         requestHandle.then(requestSucceeded, requestFailed);
 		
     }
+<<<<<<< HEAD
 
     function requestSucceeded(response, io) {
         //loop through the items and add to the feature layer
@@ -132,6 +149,31 @@ require(["esri/map",
         console.log('failed');
     }
 	*/
+=======
+
+    function requestSucceeded(response, io) {
+        //loop through the items and add to the feature layer
+        var features = [];
+        array.forEach(response.features, function(item) {
+            var attr = {};
+			attr["description"] = item.description;
+            //pull in any additional attributes if required
+
+            var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
+
+            var graphic = new Graphic(geometry);
+            graphic.setAttributes(attr);
+            features.push(graphic);
+        });
+		console.log("made it to the request success function");
+        featureLayer.applyEdits(features, null, null);
+    }
+
+    function requestFailed(error) {
+        console.log('failed');
+    }
+	
+>>>>>>> origin/master
 
     /*basemap layer
      var layer = new BasemapLayer({
@@ -325,7 +367,11 @@ $(document).ready(function(){
 
 function createBoxes(container){
     var i;
+<<<<<<< HEAD
     var element = document.getElementById("container"+container);
+=======
+    var element = document.getElementById("container");
+>>>>>>> origin/master
 
     for (i=0; i<8; i++) {
 
@@ -346,7 +392,18 @@ function createBoxes(container){
     var size =  (((window.innerWidth-110)/5))*(i);
     element.style.width= size +"px";
 }
+/*function createPopup(){
+ var box = document.getElementsByClassName("box");
 
+ var div = document.createElement("div");
+ var att = document.createAttribute("id")
+ att.value = "popup";
+ div.setAttributeNode(att);
+
+ $(box).click(function () {
+ document.getElementById('div#popup').style.display = 'block';
+ });
+ }*/
 function createPopup(boxId){
     //var box = document.getElementById(boxId);
     //var boxNum = box.substring(3);
