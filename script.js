@@ -272,7 +272,6 @@ $(document).ready(function(){
 
     });
 
-
     $("#slideLeft").click(function(){
         var div = $(this);
         var rect = document.getElementById("container1").getBoundingClientRect();
@@ -280,13 +279,41 @@ $(document).ready(function(){
             $("#container1").animate({left: "+=" + 20},"fast");
             $("#container1").animate({left: "-=" + 30},"fast");
             $("#container1").animate({left: "+=" + 10},"fast");
+
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
             $("#container1").animate({left: "+=" + ((window.innerWidth-110)/5)});
         }
     });
+    $("#slideLeft").click(function(){
+        var div = $(this);
+        var rect = document.getElementById("container2").getBoundingClientRect();
+        if(rect.left > 0){
+            $("#container2").animate({left: "+=" + 20},"fast");
+            $("#container2").animate({left: "-=" + 30},"fast");
+            $("#container2").animate({left: "+=" + 10},"fast");
 
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container2").animate({left: "+=" + ((window.innerWidth-110)/5)});
+        }
+    });
+    $("#slideLeft").click(function(){
+        var div = $(this);
+        var rect = document.getElementById("container3").getBoundingClientRect();
+        if(rect.left > 0){
+            $("#container3").animate({left: "+=" + 20},"fast");
+            $("#container3").animate({left: "-=" + 30},"fast");
+            $("#container3").animate({left: "+=" + 10},"fast");
+
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container3").animate({left: "+=" + ((window.innerWidth-110)/5)});
+        }
+    });
     $("#slideLeft").mouseenter(function(){
         $(this).css("opacity",1);
     });
@@ -306,7 +333,32 @@ $(document).ready(function(){
             $("#container1").animate({left: "-=" + ((window.innerWidth-110)/5)});
         }
     });
-
+    $("#slideRight").click(function(){
+        var div = $(this);
+        var rect = document.getElementById("container2").getBoundingClientRect();
+        if(rect.right < window.innerWidth-30){
+            $("#container2").animate({left: "-=" + 20},"fast");
+            $("#container2").animate({left: "+=" + 30},"fast");
+            $("#container2").animate({left: "-=" + 10},"fast");
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container2").animate({left: "-=" + ((window.innerWidth-110)/5)});
+        }
+    });
+    $("#slideRight").click(function(){
+        var div = $(this);
+        var rect = document.getElementById("container3").getBoundingClientRect();
+        if(rect.right < window.innerWidth-30){
+            $("#container3").animate({left: "-=" + 20},"fast");
+            $("#container3").animate({left: "+=" + 30},"fast");
+            $("#container3").animate({left: "-=" + 10},"fast");
+        }else{
+            div.animate({width: '25px'},"fast");
+            div.animate({width: '30px'}, "fast");
+            $("#container3").animate({left: "-=" + ((window.innerWidth-110)/5)});
+        }
+    });
     $("#slideRight").mouseenter(function(){
         $(this).css("opacity",1);
     });
