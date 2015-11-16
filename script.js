@@ -21,6 +21,7 @@ require(["esri/map",
     "esri/layers/FeatureLayer",
     "esri/request",
     "dojo/on",
+	"dojo/ready",
     "dojo/_base/array",
     "esri/tasks/FeatureSet",
     "esri/geometry/Point",
@@ -38,7 +39,7 @@ require(["esri/map",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
-], function(Map, FeatureLayer , Request, on, array, FeatureSet, Point, SpatialReference, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map, FeatureLayer , esriRequest, on, ready, array, FeatureSet, Point, SpatialReference, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
     map = new Map("mapDiv", {
         center: [1.868956,50.9518855],
         zoom: 3,
@@ -91,19 +92,19 @@ require(["esri/map",
         mode: FeatureLayer.MODE_SNAPSHOT
     });
 	
-	map.on("load", function(){
+	ready( function(){
 		console.log("made it to the load function");
-		//requestData();
+		requestData();
 	});
 	map.addLayer([featureLayer]);
 	
-   /* function requestData(){
+   function requestData(){
 		console.log("made it to request data");
         var requestHandle = esriRequest({
-            url: "AllPoints.json",
+            url: "GeoJsonData/AllPoints.json",
 			handleAs: "json",
 			timeout: 0,			
-            callbackParamName: "callback"
+            callbackParamName: "jsoncallback"
         });
 		console.log("made it to past the handleEvent");
         requestHandle.then(requestSucceeded, requestFailed);
@@ -131,7 +132,7 @@ require(["esri/map",
     function requestFailed(error) {
         console.log('failed');
     }
-	*/
+	
 
     /*basemap layer
      var layer = new BasemapLayer({
