@@ -252,114 +252,55 @@ $(document).ready(function(){
     });
 
     $("#timebutton1").click( function() {
-        $("#container1").show();
-        $("#container2").hide();
-        $("#container3").hide();
-
+        setVisibleContainer(1);
     });
 
-
     $("#timebutton2").click( function() {
-        $("#container2").show();
-        $("#container1").hide();
-        $("#container3").hide();
-
+        setVisibleContainer(2);
     });
 
     $("#timebutton3").click( function() {
-        $("#container3").show();
-        $("#container1").hide();
-        $("#container2").hide();
-
+        setVisibleContainer(3);
     });
 
     $("#slideLeft").click(function(){
         var div = $(this);
-        var rect = document.getElementById("container1").getBoundingClientRect();
+        var cont = getVisibleContainer();
+        var rect = document.getElementById(cont).getBoundingClientRect();
         if(rect.left > 0){
-            $("#container1").animate({left: "+=" + 20},"fast");
-            $("#container1").animate({left: "-=" + 30},"fast");
-            $("#container1").animate({left: "+=" + 10},"fast");
-
+            $("#"+cont).animate({left: "+=" + 20},"fast");
+            $("#"+cont).animate({left: "-=" + 30},"fast");
+            $("#"+cont).animate({left: "+=" + 10},"fast");
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
-            $("#container1").animate({left: "+=" + ((window.innerWidth-110)/5)});
+            $("#"+cont).animate({left: "+=" + ((window.innerWidth-110)/5)});
         }
     });
-    $("#slideLeft").click(function(){
-        var div = $(this);
-        var rect = document.getElementById("container2").getBoundingClientRect();
-        if(rect.left > 0){
-            $("#container2").animate({left: "+=" + 20},"fast");
-            $("#container2").animate({left: "-=" + 30},"fast");
-            $("#container2").animate({left: "+=" + 10},"fast");
 
-        }else{
-            div.animate({width: '25px'},"fast");
-            div.animate({width: '30px'}, "fast");
-            $("#container2").animate({left: "+=" + ((window.innerWidth-110)/5)});
-        }
-    });
-    $("#slideLeft").click(function(){
-        var div = $(this);
-        var rect = document.getElementById("container3").getBoundingClientRect();
-        if(rect.left > 0){
-            $("#container3").animate({left: "+=" + 20},"fast");
-            $("#container3").animate({left: "-=" + 30},"fast");
-            $("#container3").animate({left: "+=" + 10},"fast");
-
-        }else{
-            div.animate({width: '25px'},"fast");
-            div.animate({width: '30px'}, "fast");
-            $("#container3").animate({left: "+=" + ((window.innerWidth-110)/5)});
-        }
-    });
     $("#slideLeft").mouseenter(function(){
         $(this).css("opacity",1);
     });
+
     $("#slideLeft").mouseleave(function(){
         $(this).css("opacity",.5);
     });
+
     $("#slideRight").click(function(){
         var div = $(this);
-        var rect = document.getElementById("container1").getBoundingClientRect();
+        var cont = getVisibleContainer();
+        var rect = document.getElementById(cont).getBoundingClientRect();
         if(rect.right < window.innerWidth-30){
-            $("#container1").animate({left: "-=" + 20},"fast");
-            $("#container1").animate({left: "+=" + 30},"fast");
-            $("#container1").animate({left: "-=" + 10},"fast");
+            $("#"+cont).animate({left: "-=" + 20},"fast");
+            $("#"+cont).animate({left: "+=" + 30},"fast");
+            $("#"+cont).animate({left: "-=" + 10},"fast");
         }else{
             div.animate({width: '25px'},"fast");
             div.animate({width: '30px'}, "fast");
-            $("#container1").animate({left: "-=" + ((window.innerWidth-110)/5)});
+            $("#"+cont).animate({left: "-=" + ((window.innerWidth-110)/5)});
         }
     });
-    $("#slideRight").click(function(){
-        var div = $(this);
-        var rect = document.getElementById("container2").getBoundingClientRect();
-        if(rect.right < window.innerWidth-30){
-            $("#container2").animate({left: "-=" + 20},"fast");
-            $("#container2").animate({left: "+=" + 30},"fast");
-            $("#container2").animate({left: "-=" + 10},"fast");
-        }else{
-            div.animate({width: '25px'},"fast");
-            div.animate({width: '30px'}, "fast");
-            $("#container2").animate({left: "-=" + ((window.innerWidth-110)/5)});
-        }
-    });
-    $("#slideRight").click(function(){
-        var div = $(this);
-        var rect = document.getElementById("container3").getBoundingClientRect();
-        if(rect.right < window.innerWidth-30){
-            $("#container3").animate({left: "-=" + 20},"fast");
-            $("#container3").animate({left: "+=" + 30},"fast");
-            $("#container3").animate({left: "-=" + 10},"fast");
-        }else{
-            div.animate({width: '25px'},"fast");
-            div.animate({width: '30px'}, "fast");
-            $("#container3").animate({left: "-=" + ((window.innerWidth-110)/5)});
-        }
-    });
+
     $("#slideRight").mouseenter(function(){
         $(this).css("opacity",1);
     });
@@ -372,7 +313,6 @@ $(document).ready(function(){
         console.log(id);
         createPopup(id);
     });
-
 
 });
 
@@ -409,8 +349,45 @@ function createPopup(boxId){
     div.setAttributeNode(att);
     var node = document.createTextNode("Here is a new DIV. " + boxId );
     div.appendChild(node);
-    //window.open("","","height=300, titlebar = no, resizable = no, menubar=no, scrollbars=no, toolbar=no, width=300");
     var element = document.body;
     element.appendChild(div);
 }
 
+function getVisibleContainer(){
+    if(document.getElementById("container1").style.display.valueOf().toString() == "block"){
+        return "container1";
+    }else if(document.getElementById("container2").style.display.valueOf().toString() == "block"){
+        return "container2";
+    }else{
+        return "container3";
+    }
+}
+
+function setVisibleContainer(num) {
+    switch (num) {
+        case(1):
+            $("#container1").show();
+            $("#container2").hide();
+            $("#container3").hide();
+            $("#timebutton1").css({"background":"#3B5786","border-bottom-color":"#3B5786"});
+            $("#timebutton2").css({"background":"#2f456a","border-bottom-color":"#2f456a"});
+            $("#timebutton3").css({"background":"#2f456a","border-bottom-color":"#2f456a"});
+            break;
+        case(2):
+            $("#container2").show();
+            $("#container1").hide();
+            $("#container3").hide();
+            $("#timebutton2").css({"background":"#3B5786","border-bottom-color":"#3B5786"});
+            $("#timebutton1").css({"background":"#2f456a","border-bottom-color":"#2f456a"});
+            $("#timebutton3").css({"background":"#2f456a","border-bottom-color":"#2f456a"});
+            break;
+        case(3):
+            $("#container3").show();
+            $("#container1").hide();
+            $("#container2").hide();
+            $("#timebutton3").css({"background":"#3B5786","border-bottom-color":"#3B5786"});
+            $("#timebutton1").css({"background":"#2f456a","border-bottom-color":"#2f456a"});
+            $("#timebutton2").css({"background":"#2f456a","border-bottom-color":"#2f456a"});
+            break;
+    }
+}
