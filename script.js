@@ -310,7 +310,9 @@ $(document).ready(function(){
 
     $(".box").click(function(){
         var id = (this).getAttribute("id");
-        console.log(id);
+        if(document.getElementById("popup")) {
+            closePopup();
+        }
         createPopup(id);
     });
 
@@ -344,13 +346,28 @@ function createPopup(boxId){
     //var box = document.getElementById(boxId);
     //var boxNum = box.substring(3);
     var div = document.createElement("div");
-    var att = document.createAttribute("id")
+    var att = document.createAttribute("id");
     att.value = "popup";
     div.setAttributeNode(att);
     var node = document.createTextNode("Here is a new DIV. " + boxId );
     div.appendChild(node);
     var element = document.body;
     element.appendChild(div);
+
+    var close = document.createElement("img");
+    var att2 = document.createAttribute("id");
+    att2.value = "close";
+    close.setAttributeNode(att2);
+    close.setAttribute("src", "resources/close_box_red.png");
+    var popUp = document.getElementById("popup");
+    popUp.appendChild(close);
+    close.onclick = function(){closePopup()};
+}
+
+function closePopup(){
+    console.log("we made it!");
+    var rem = document.getElementById("popup");
+    document.body.removeChild(rem);
 }
 
 function getVisibleContainer(){

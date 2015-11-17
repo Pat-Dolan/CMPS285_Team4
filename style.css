@@ -38,7 +38,7 @@ html, body, .map{
     padding-left: 10px;
 }
 
-image, i, .box, #slideRight, #slideLeft, input{
+img, i, .box, input{
 	cursor: pointer; cursor: hand;
 }
 
@@ -341,6 +341,14 @@ fieldset{
     z-index:10;
     display:block;
     background-color: #3B5786;
+}
+
+#close{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
 }
 
 #translucent{
