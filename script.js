@@ -2,6 +2,7 @@ var map;
 var home;
 var layer1,layer2,layer3;
 var s;
+var features = [];
 
 
 var dojoConfig = {
@@ -12,10 +13,12 @@ var jsonData;
 
 $.ajax({
     dataType: "json",
-    url: "data.json",
+    url: "GeoJsonData/AllPoints.json",
     async: false,
     success: function(data){jsonData = data}
 });
+
+//console.log(jsonData);
 
 require(["esri/map",
     "esri/layers/FeatureLayer",
@@ -87,16 +90,34 @@ require(["esri/map",
         }]
     };
 
+    var popupTemplate = new InfoTemplate("${City_Names}");
+
+
+    console.log(featureCollection);
+
     var featureLayer = new FeatureLayer(featureCollection,{
         id:"RuskinLayer",
-        mode: FeatureLayer.MODE_SNAPSHOT
+        infoTemplate : popupTemplate,
+        mode: FeatureLayer.MODE_SNAPSHOT,
+        outFields: ["*"]
     });
 	
-	ready( function(){
-		console.log("made it to the load function");
+	map.on("layers-add-result",function(evt){
+
+		console.log(evt.layers);
 		requestData();
+        //requestLines();
+        searchBar();
 	});
-	map.addLayer([featureLayer]);
+
+	map.addLayers([featureLayer]);
+
+    /* Needs new feature Layer for the SimpleLineSymbol
+    map.on("layers-add-result",function(evt){
+
+        requestLines();
+    });
+    */
 	
    function requestData(){
 		console.log("made it to request data");
@@ -111,12 +132,27 @@ require(["esri/map",
 		
     }
 
+    /*
+    function requestLines(){
+
+        var requestHandle = esriRequest({
+            url : "GeoJsonData/data.json",
+            handleAs: "json",
+            timeout : 0,
+            callbackParamName: "jsoncallback"
+
+        });
+        requestHandle.then(requestSucceeded, requestFailed);
+
+    }
+    */
+
+
     function requestSucceeded(response, io) {
         //loop through the items and add to the feature layer
-        var features = [];
         array.forEach(response.features, function(item) {
             var attr = {};
-			attr["description"] = item.description;
+			attr["properties"] = item.properties;
             //pull in any additional attributes if required
 
             var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
@@ -132,7 +168,7 @@ require(["esri/map",
     function requestFailed(error) {
         console.log('failed');
     }
-	
+
 
     /*basemap layer
      var layer = new BasemapLayer({
@@ -167,36 +203,42 @@ require(["esri/map",
      */
 
 
-    s = new Search({
-        enableButtonMode: true, //this enables the search widget to display as a single button
-        enableLabel: false,
-        enableInfoWindow: true,
-        showInfoWindowOnSelect: false,
-        map: map,
-        sources: [],
-        zoomScale : 5000000
-    }, "search");
+    function searchBar() {
 
-    var sources = s.get("sources");
+        s = new Search({
+            enableButtonMode: true, //this enables the search widget to display as a single button
+            enableLabel: false,
+            enableInfoWindow: true,
+            showInfoWindowOnSelect: false,
+            map: map,
+            //sources: [],
+            zoomScale: 5000000
+        }, "search");
 
-    sources.push({
+        var sources = s.get("sources");
 
-        CSVLayer: new CSVLayer("Ruskin_Stuff.csv", {  }),
-        infoTemplate: new InfoTemplate("${type}", "${place}"),
-        enableSuggestions: true,
-        placeholder: "Spain",
-        enableLabel: false,
-        searchFields: ["place"],
-        displayField: "place",
-        name: "Ruskin",
-        maxSuggestions: 2,
-        exactMatch: false
+        sources.push({
 
-    });
-    //Set the sources above to the search widget
-    s.set("sources", sources);
+            featureLayer: jsonData,
+            infoTemplate: popupTemplate,
+            enableSuggestions: true,
+            placeholder: "Calais",
+            enableLabel: false,
+            searchFields: ["features"],
+            displayField: "City_Names",
+            outFields: ["*"],
+            name: "Ruskin",
+            maxSuggestions: 2,
+            exactMatch: false
 
-    s.startup();
+        });
+
+        console.log(sources);
+        //Set the sources above to the search widget
+        s.set("sources", sources);
+
+        s.startup();
+    }
 
 });
 
@@ -254,6 +296,8 @@ $(document).ready(function(){
     $("#timebutton1").click( function() {
         setVisibleContainer(1);
     });
+
+
 
     $("#timebutton2").click( function() {
         setVisibleContainer(2);
