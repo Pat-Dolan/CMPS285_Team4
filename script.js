@@ -402,7 +402,7 @@ function createPopup(boxId){
     var att2 = document.createAttribute("id");
     att2.value = "close";
     close.setAttributeNode(att2);
-    close.setAttribute("src", "resources/close_box_red.png");
+    close.setAttribute("src", "resources/white_x_close.png");
     var popUp = document.getElementById("popup");
     popUp.appendChild(close);
     close.onclick = function(){closePopup()};
