@@ -3,7 +3,9 @@ var home;
 var layer1,layer2,layer3;
 var s;
 var features = [];
-
+var graphic;
+var popupTemplate;
+var featureLayer;
 
 var dojoConfig = {
     parseOnLoad: true
@@ -18,7 +20,7 @@ $.ajax({
     success: function(data){jsonData = data}
 });
 
-//console.log(jsonData);
+console.log(jsonData);
 
 require(["esri/map",
     "esri/layers/FeatureLayer",
@@ -52,6 +54,7 @@ require(["esri/map",
     home = new HomeButton({map: map
     }, "HomeButton");
     home.startup();
+
 
     var featureCollection = {
         "layerDefinition": null,
@@ -90,12 +93,12 @@ require(["esri/map",
         }]
     };
 
-    var popupTemplate = new InfoTemplate("${City_Names}");
+
+   popupTemplate = new InfoTemplate();
 
 
-    console.log(featureCollection);
 
-    var featureLayer = new FeatureLayer(featureCollection,{
+    featureLayer = new FeatureLayer(featureCollection,{
         id:"RuskinLayer",
         infoTemplate : popupTemplate,
         mode: FeatureLayer.MODE_SNAPSHOT,
@@ -104,13 +107,19 @@ require(["esri/map",
 	
 	map.on("layers-add-result",function(evt){
 
-		console.log(evt.layers);
 		requestData();
+        //console.log(featureLayer.features[0]);
         //requestLines();
         searchBar();
+
+
 	});
 
+    console.log(graphic);
+
 	map.addLayers([featureLayer]);
+
+
 
     /* Needs new feature Layer for the SimpleLineSymbol
     map.on("layers-add-result",function(evt){
@@ -127,7 +136,6 @@ require(["esri/map",
 			timeout: 0,			
             callbackParamName: "jsoncallback"
         });
-		console.log("made it to past the handleEvent");
         requestHandle.then(requestSucceeded, requestFailed);
 		
     }
@@ -153,15 +161,18 @@ require(["esri/map",
         array.forEach(response.features, function(item) {
             var attr = {};
 			attr["properties"] = item.properties;
+            //popupTemplate = new InfoTemplate("${item[0].properties.City_Names}");
+            //infoTemplate: popupTemplate;
             //pull in any additional attributes if required
 
             var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
 
-            var graphic = new Graphic(geometry);
+            graphic = new Graphic(geometry);
             graphic.setAttributes(attr);
             features.push(graphic);
         });
-		console.log("made it to the request success function");
+
+        //console.log(popupTemplate);
         featureLayer.applyEdits(features, null, null);
     }
 
@@ -203,6 +214,13 @@ require(["esri/map",
      */
 
 
+    /*function getNames(){
+        for(i = 0; i < sources[1].featureLayer.features.length; i++){
+            console.log(sources[1].featureLayer.feature[i].properties.City_Names);
+
+     */
+
+
     function searchBar() {
 
         s = new Search({
@@ -224,8 +242,8 @@ require(["esri/map",
             enableSuggestions: true,
             placeholder: "Calais",
             enableLabel: false,
-            searchFields: ["features"],
-            displayField: "City_Names",
+            searchFields: ["sources[1].featureLayer.features.properties.City_Names"],
+            //displayField: "properties.City_Names",
             outFields: ["*"],
             name: "Ruskin",
             maxSuggestions: 2,
@@ -264,10 +282,10 @@ $(document).ready(function(){
     });
 
     $("#layer2").click(function(){
-        if (layer2.visible == true){
-            layer2.hide();
+        if (featureLayer.visible == true){
+            featureLayer.hide();
         }else{
-            layer2.show();
+            featureLayer.show();
         }
     });
 
@@ -409,7 +427,6 @@ function createPopup(boxId){
 }
 
 function closePopup(){
-    console.log("we made it!");
     var rem = document.getElementById("popup");
     document.body.removeChild(rem);
 }
