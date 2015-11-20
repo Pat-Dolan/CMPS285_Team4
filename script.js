@@ -20,7 +20,6 @@ $.ajax({
     success: function(data){jsonData = data}
 });
 
-console.log(jsonData);
 
 require(["esri/map",
     "esri/layers/FeatureLayer",
@@ -94,13 +93,10 @@ require(["esri/map",
     };
 
 
-   popupTemplate = new InfoTemplate();
-
 
 
     featureLayer = new FeatureLayer(featureCollection,{
         id:"RuskinLayer",
-        infoTemplate : popupTemplate,
         mode: FeatureLayer.MODE_SNAPSHOT,
         outFields: ["*"]
     });
@@ -108,17 +104,12 @@ require(["esri/map",
 	map.on("layers-add-result",function(evt){
 
 		requestData();
-        //console.log(featureLayer.features[0]);
         //requestLines();
-        searchBar();
-
-
+        searchBar()
 	});
 
-    console.log(graphic);
 
 	map.addLayers([featureLayer]);
-
 
 
     /* Needs new feature Layer for the SimpleLineSymbol
@@ -129,7 +120,6 @@ require(["esri/map",
     */
 	
    function requestData(){
-		console.log("made it to request data");
         var requestHandle = esriRequest({
             url: "GeoJsonData/AllPoints.json",
 			handleAs: "json",
@@ -161,18 +151,15 @@ require(["esri/map",
         array.forEach(response.features, function(item) {
             var attr = {};
 			attr["properties"] = item.properties;
-            //popupTemplate = new InfoTemplate("${item[0].properties.City_Names}");
-            //infoTemplate: popupTemplate;
             //pull in any additional attributes if required
 
             var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
-
-            graphic = new Graphic(geometry);
-            graphic.setAttributes(attr);
+            var template = new InfoTemplate("Point Information","City Name: "+ item.properties.City_Names.toString() + "</br>" + "Latitude: " + item.properties.y_latitude + "</br>" + "Longitude: " + item.properties.x_longitude);
+            graphic = new Graphic(geometry,null,null,template);
             features.push(graphic);
-        });
 
-        //console.log(popupTemplate);
+
+        });
         featureLayer.applyEdits(features, null, null);
     }
 
@@ -251,7 +238,6 @@ require(["esri/map",
 
         });
 
-        console.log(sources);
         //Set the sources above to the search widget
         s.set("sources", sources);
 
@@ -259,16 +245,6 @@ require(["esri/map",
     }
 
 });
-
-/*
- layer3 = new CSVLayer("", {  });
- var marker3 = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 20, 20);
- var renderer3 = new SimpleRenderer(marker3);
- layer2.setRenderer(renderer3);
- var template3 = new InfoTemplate("${type}", "${place}");
- layer2.setInfoTemplate(template3);
- map.addLayer(layer3);
- */
 
 
 
