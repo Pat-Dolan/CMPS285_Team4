@@ -6,11 +6,12 @@ var features = [];
 var graphic;
 var popupTemplate;
 var featureLayer;
+var mapHash;
+
 
 var dojoConfig = {
     parseOnLoad: true
 };
-
 var jsonData;
 
 $.ajax({
@@ -20,9 +21,10 @@ $.ajax({
     success: function(data){jsonData = data}
 });
 
-
 require(["esri/map",
     "esri/layers/FeatureLayer",
+    "esri/geometry/Extent",
+    "esri/SpatialReference",
     "esri/request",
     "dojo/on",
 	"dojo/ready",
@@ -43,7 +45,7 @@ require(["esri/map",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
-], function(Map, FeatureLayer , esriRequest, on, ready, array, FeatureSet, Point, SpatialReference, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map, FeatureLayer , Extent, SpatialReference,  esriRequest, on, ready, array, FeatureSet, Point, SpatialReference, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
     map = new Map("mapDiv", {
         center: [1.868956,50.9518855],
         zoom: 3,
@@ -92,19 +94,15 @@ require(["esri/map",
         }]
     };
 
-
-
-
     featureLayer = new FeatureLayer(featureCollection,{
         id:"RuskinLayer",
         mode: FeatureLayer.MODE_SNAPSHOT,
         outFields: ["*"]
     });
-	
+
 	map.on("layers-add-result",function(evt){
 
 		requestData();
-        //requestLines();
         searchBar()
 	});
 
@@ -112,13 +110,10 @@ require(["esri/map",
 	map.addLayers([featureLayer]);
 
 
-    /* Needs new feature Layer for the SimpleLineSymbol
-    map.on("layers-add-result",function(evt){
-
-        requestLines();
+    map.on("click",function(evt){
+        buscar("London");
     });
-    */
-	
+
    function requestData(){
         var requestHandle = esriRequest({
             url: "GeoJsonData/AllPoints.json",
@@ -129,22 +124,6 @@ require(["esri/map",
         requestHandle.then(requestSucceeded, requestFailed);
 		
     }
-
-    /*
-    function requestLines(){
-
-        var requestHandle = esriRequest({
-            url : "GeoJsonData/data.json",
-            handleAs: "json",
-            timeout : 0,
-            callbackParamName: "jsoncallback"
-
-        });
-        requestHandle.then(requestSucceeded, requestFailed);
-
-    }
-    */
-
 
     function requestSucceeded(response, io) {
         //loop through the items and add to the feature layer
@@ -190,25 +169,7 @@ require(["esri/map",
     layer1.setInfoTemplate(template);
     map.addLayer(layer1);
 
-
-    /*layer2 = new CSVLayer("Ruskin_Stuff.csv", {  });
-     var marker2 = new PictureMarkerSymbol("resources/markers/StaticIcon2.png", 20, 20);
-     var renderer2 = new SimpleRenderer(marker2);
-     layer2.setRenderer(renderer2);
-     var template2 = new InfoTemplate("${type}", "${place}");
-     layer2.setInfoTemplate(template2);
-     map.addLayer(layer2);
-     */
-
-
-    /*function getNames(){
-        for(i = 0; i < sources[1].featureLayer.features.length; i++){
-            console.log(sources[1].featureLayer.feature[i].properties.City_Names);
-
-     */
-
-
-    function searchBar() {
+        function searchBar() {
 
         s = new Search({
             enableButtonMode: true, //this enables the search widget to display as a single button
@@ -222,6 +183,7 @@ require(["esri/map",
 
         var sources = s.get("sources");
 
+
         sources.push({
 
             featureLayer: jsonData,
@@ -229,8 +191,8 @@ require(["esri/map",
             enableSuggestions: true,
             placeholder: "Calais",
             enableLabel: false,
-            searchFields: ["sources[1].featureLayer.features.properties.City_Names"],
-            //displayField: "properties.City_Names",
+            searchFields: ["properties.City_Names"],
+            //displayField: "properties.City_Names".toString(),
             outFields: ["*"],
             name: "Ruskin",
             maxSuggestions: 2,
@@ -238,17 +200,65 @@ require(["esri/map",
 
         });
 
+
         //Set the sources above to the search widget
         s.set("sources", sources);
 
+        console.log(sources);
+
         s.startup();
+
     }
+
+    /*
+    mapHash = {};
+    var myKey;
+
+    for(i= 0 ; i< jsonData.features.length; i++){
+
+        myKey = jsonData.features[i].properties.City_Names;
+        mapHash[myKey] = jsonData.features[i].properties;
+
+    }
+
+    function buscar(text) {
+
+        console.log("hi");
+        //console.log(mapHash);
+
+        //var text = $("#myText").val();
+        var Xlongitude = mapHash[text].x_longitude;
+        var Ylatitude = mapHash[text].y_latitude;
+
+        var extent = new Extent(Xlongitude, Ylatitude, Xlongitude, Ylatitude, new SpatialReference({wkid: 4326}));
+        map.setExtent(extent);
+        map.setLevel(8);
+
+    }
+    */
+
 
 });
 
 
 
+
+
+
 $(document).ready(function(){
+
+    /*
+    $("#mapDiv").trigger(function(load){
+        console.log("hi");
+        $("#submit").clik(function(event){
+            console.log("here");
+            event.preventDefault()
+            buscar();
+        });
+    });
+    */
+
+
     $("#layer1").click(function(){
         if (layer1.visible == true){
             layer1.hide();
@@ -282,16 +292,26 @@ $(document).ready(function(){
     $("#upArrow").mouseleave(function(){
         $("i").css("opacity",.5);
     });
+
+    $("#submit").mouseenter(function(){
+        $(this).css("opacity",.5);
+    });
+
+    $("#submit").mouseleave(function(){
+        $(this).css("opacity",1);
+    });
+
     $("#upArrow").click(function(){
+
         $("i").toggleClass("fa-arrow-down");
         $("#footer").toggleClass("opened");
+        $("#buttonContainer").toggle();
+
     });
 
     $("#timebutton1").click( function() {
         setVisibleContainer(1);
     });
-
-
 
     $("#timebutton2").click( function() {
         setVisibleContainer(2);
@@ -350,8 +370,17 @@ $(document).ready(function(){
         var id = (this).getAttribute("id");
         if(document.getElementById("popup")) {
             closePopup();
+
         }
         createPopup(id);
+        $("#footer").toggleClass("opened");
+        $("i").toggleClass("fa-arrow-down");
+        $("#buttonContainer").toggle();
+
+    });
+
+    $("#close").click(function(){
+            $("#footer").show();
     });
 
 });
@@ -403,8 +432,13 @@ function createPopup(boxId){
 }
 
 function closePopup(){
+
     var rem = document.getElementById("popup");
     document.body.removeChild(rem);
+    $("#footer").toggleClass("opened");
+    $("i").toggleClass("fa-arrow-down");
+    $("#buttonContainer").toggle();
+
 }
 
 function getVisibleContainer(){
