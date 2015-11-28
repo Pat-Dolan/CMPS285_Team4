@@ -6,6 +6,7 @@ var sources;
 var graphic;
 var featureLayerTemplate;
 var featureLayer;
+var featureLayer2;
 var mapHash;
 
 
@@ -129,7 +130,7 @@ require(["esri/map",
         }]
     };
 
-    var featureLayer2 = new FeatureLayer(featureCollection2, {
+    featureLayer2 = new FeatureLayer(featureCollection2, {
         id: "lineLayer",
         mode: FeatureLayer.MODE_SNAPSHOT,
         outFields: ["*"]
@@ -394,8 +395,10 @@ $(document).ready(function(){
     $("#layer2").click(function(){
         if (featureLayer.visible == true){
             featureLayer.hide();
+            featureLayer2.hide();
         }else{
             featureLayer.show();
+            featureLayer2.show();
         }
     });
 
