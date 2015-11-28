@@ -42,12 +42,16 @@ require(["esri/map",
     "esri/dijit/BasemapLayer",//adds basemap to layer
     "esri/dijit/Basemap",
     "esri/layers/CSVLayer",
+    "dojo/i18n!esri/nls/jsapi",
     "esri/symbols/PictureMarkerSymbol",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
 
-], function(Map, FeatureLayer , Extent, SpatialReference, esriRequest, on, ready, array, FeatureSet, Point, Polyline, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map, FeatureLayer , Extent, SpatialReference, esriRequest, on, ready, array, FeatureSet, Point, Polyline, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, esriBundle, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+
+    esriBundle.widgets.homeButton.home.title = "moves map back to original center and zoom";
+
     map = new Map("mapDiv", {
         center: [1.868956,50.9518855],
         zoom: 3,
