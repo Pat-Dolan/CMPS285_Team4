@@ -148,7 +148,12 @@ footer{
 }
 
 .esriPopup {
-    position: absolute;
+    position: fixed;
+    top:50%;
+    left:50%;
+    width:0px;  /* adjust as per your needs */
+    height:0px;   /* adjust as per your needs */
+    margin: auto;
     z-index: 40;
     font-family: open_sanssemibold,sans-serif;
     font-size: 12px;
