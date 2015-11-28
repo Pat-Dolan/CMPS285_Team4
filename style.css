@@ -1,3 +1,5 @@
+
+
 html, body, .map{
     padding: 0;
     margin: 0;
@@ -38,7 +40,7 @@ html, body, .map{
     padding-left: 10px;
 }
 
-img, i, .box, input{
+img, i, .box, input,button{
 	cursor: pointer; cursor: hand;
 }
 
@@ -151,10 +153,14 @@ footer{
     font-family: open_sanssemibold,sans-serif;
     font-size: 12px;
     border-radius: 5px;
+
+
 }
 
 .esriPopup .esriPopupWrapper {
     box-shadow: 0 0.75em #777;
+    anchor:top;
+
 }
 
 .esriPopup .sizer {
@@ -184,12 +190,28 @@ footer{
     padding: 2px 10px 4px;
     background-color: #F7F7F7;
     position: relative;
+
 }
 
 .esriPopup a {
     background-color: #F7F7F7;
     color: #3B5786;
     text-decoration: underline;
+}
+
+#ownSearch{
+    position:absolute;
+    left:5%;
+    top:40px;
+    z-index:50;
+    color: #fff;
+}
+
+#submit{
+    position:absolute;
+    z-index:50;
+    top:110px;
+    left:10%;
 }
 
 .rightPane{
@@ -219,15 +241,26 @@ fieldset{
 	border: 5px solid #3B5786;
     border-radius: 10px;
     background-color: #3B5786;
+
 }
+
+#s{
+    border: 5px solid #3B5786;
+    border-radius: 10px;
+    background-color: #3B5786;
+    height: 110px;
+    width:130px ;
+}
+
 
 #search {
     display: block;
     position: absolute;
-    z-index: 2;
+    z-index: 60;
     top: 80px;
     left: 60px;
 }
+
 
 .box {
     display: inline-block;
@@ -257,6 +290,7 @@ fieldset{
     left: 0px;
     z-index: 900;
 }
+
 
 .timeButton {
     position: relative;
