@@ -2,9 +2,9 @@ var map;
 var home;
 var layer1,layer2,layer3;
 var s;
-var features = [];
+var sources;
 var graphic;
-var popupTemplate;
+var featureLayerTemplate;
 var featureLayer;
 
 var dojoConfig = {
@@ -20,7 +20,6 @@ $.ajax({
     success: function(data){jsonData = data}
 });
 
-
 require(["esri/map",
     "esri/layers/FeatureLayer",
     "esri/request",
@@ -29,6 +28,7 @@ require(["esri/map",
     "dojo/_base/array",
     "esri/tasks/FeatureSet",
     "esri/geometry/Point",
+    "esri/geometry/Polyline",
     "esri/SpatialReference",
     "esri/graphic",
     "esri/layers/GraphicsLayer",
@@ -43,7 +43,7 @@ require(["esri/map",
     "esri/renderers/SimpleRenderer",
     "esri/InfoTemplate",
     "dojo/domReady!"
-], function(Map, FeatureLayer , esriRequest, on, ready, array, FeatureSet, Point, SpatialReference, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function(Map, FeatureLayer , esriRequest, on, ready, array, FeatureSet, Point, Polyline, SpatialReference, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
     map = new Map("mapDiv", {
         center: [1.868956,50.9518855],
         zoom: 3,
@@ -90,7 +90,49 @@ require(["esri/map",
             "alias": "Title",
             "type": "esriFieldTypeString"
         }]
+    }; var featureCollection2 = {
+        "layerDefinition": null,
+        "featureSet": {
+            "features": [],
+            "geometryType": "esriGeometryPolyline"
+        }
     };
+    featureCollection2.layerDefinition = {
+        "geometryType": "esriGeometryPolyline",
+        "objectIdField": "ObjectID",
+        "drawingInfo": {
+            "renderer": {
+                "type": "simple",
+                "symbol": {
+                    "type": "esriSLS",
+                    "style": "STYLE_SOLID",
+                    "color": ([255,0,0]),
+                    "width": 5
+                }
+            }
+        },
+        "fields": [{
+            "name": "ObjectID",
+            "alias": "ObjectID",
+            "type": "esriFieldTypeOID"
+        }, {
+            "name": "description",
+            "alias": "Description",
+            "type": "esriFieldTypeString"
+        }, {
+            "name": "title",
+            "alias": "Title",
+            "type": "esriFieldTypeString"
+        }]
+    };
+
+
+    var featureLayer2 = new FeatureLayer(featureCollection2, {
+        id: "lineLayer",
+        mode: FeatureLayer.MODE_SNAPSHOT,
+        outFields: ["*"]
+    });
+
 
 
 
@@ -104,12 +146,17 @@ require(["esri/map",
 	map.on("layers-add-result",function(evt){
 
 		requestData();
-        //requestLines();
-        searchBar()
+        requestLines();
+        console.log(featureLayer2);
 	});
 
+    featureLayer.on("edits-complete", function(event){
+        searchBar();
+    });
 
-	map.addLayers([featureLayer]);
+
+
+	map.addLayers([featureLayer, featureLayer2]);
 
 
     /* Needs new feature Layer for the SimpleLineSymbol
@@ -130,7 +177,7 @@ require(["esri/map",
 		
     }
 
-    /*
+
     function requestLines(){
 
         var requestHandle = esriRequest({
@@ -140,22 +187,74 @@ require(["esri/map",
             callbackParamName: "jsoncallback"
 
         });
-        requestHandle.then(requestSucceeded, requestFailed);
-
+        requestHandle.then(requestSucceed, requestFailed);
     }
-    */
+
+    function requestSucceed(response, io) {
+        //loop through the items and add to the feature layer
+        var features = [];
+        var geometry;
+        array.forEach(response.features, function(item) {
+            console.log(item.geometry.coordinates.length);
+            if(item.geometry.coordinates.length == 4){
+                geometry = new Polyline([item.geometry.coordinates[0], item.geometry.coordinates[1], item.geometry.coordinates[1], item.geometry.coordinates[2], item.geometry.coordinates[2], item.geometry.coordinates[3]]);
+            }
+            else if(item.geometry.coordinates.length == 8)
+            {
+                var geometry = new Polyline([item.geometry.coordinates[0], item.geometry.coordinates[1], item.geometry.coordinates[1], item.geometry.coordinates[2], item.geometry.coordinates[2], item.geometry.coordinates[3],
+                    item.geometry.coordinates[3], item.geometry.coordinates[4], item.geometry.coordinates[4], item.geometry.coordinates[5], item.geometry.coordinates[5], item.geometry.coordinates[6], item.geometry.coordinates[6],
+                    item.geometry.coordinates[7]]);
+            }
+            else if(item.geometry.coordinates.length == 9)
+            {
+                var geometry = new Polyline([item.geometry.coordinates[0], item.geometry.coordinates[1], item.geometry.coordinates[1], item.geometry.coordinates[2], item.geometry.coordinates[2], item.geometry.coordinates[3],
+                    item.geometry.coordinates[3], item.geometry.coordinates[4], item.geometry.coordinates[4], item.geometry.coordinates[5], item.geometry.coordinates[5], item.geometry.coordinates[6], item.geometry.coordinates[6],
+                    item.geometry.coordinates[7], item.geometry.coordinates[7], item.geometry.coordinates[8]]);
+            }
+            else if(item.geometry.coordinates.length == 14)
+            {
+                var geometry = new Polyline([item.geometry.coordinates[0], item.geometry.coordinates[1], item.geometry.coordinates[1], item.geometry.coordinates[2], item.geometry.coordinates[2], item.geometry.coordinates[3],
+                    item.geometry.coordinates[3], item.geometry.coordinates[4], item.geometry.coordinates[4], item.geometry.coordinates[5], item.geometry.coordinates[5], item.geometry.coordinates[6], item.geometry.coordinates[6],
+                    item.geometry.coordinates[7], item.geometry.coordinates[7], item.geometry.coordinates[8], item.geometry.coordinates[8], item.geometry.coordinates[9], item.geometry.coordinates[9], item.geometry.coordinates[10],
+                    item.geometry.coordinates[10], item.geometry.coordinates[11], item.geometry.coordinates[11], item.geometry.coordinates[12], item.geometry.coordinates[12], item.geometry.coordinates[13]]);
+            }
+            else if(item.geometry.coordinates.length == 21)
+            {
+                var geometry = new Polyline([item.geometry.coordinates[0], item.geometry.coordinates[1], item.geometry.coordinates[1], item.geometry.coordinates[2], item.geometry.coordinates[2], item.geometry.coordinates[3],
+                    item.geometry.coordinates[3], item.geometry.coordinates[4], item.geometry.coordinates[4], item.geometry.coordinates[5], item.geometry.coordinates[5], item.geometry.coordinates[6], item.geometry.coordinates[6],
+                    item.geometry.coordinates[7], item.geometry.coordinates[7], item.geometry.coordinates[8], item.geometry.coordinates[8], item.geometry.coordinates[9], item.geometry.coordinates[9], item.geometry.coordinates[10],
+                    item.geometry.coordinates[10], item.geometry.coordinates[11], item.geometry.coordinates[11], item.geometry.coordinates[12], item.geometry.coordinates[12], item.geometry.coordinates[13],
+                    item.geometry.coordinates[13], item.geometry.coordinates[14],item.geometry.coordinates[14], item.geometry.coordinates[15],item.geometry.coordinates[15], item.geometry.coordinates[16],
+                    item.geometry.coordinates[16], item.geometry.coordinates[17],item.geometry.coordinates[17], item.geometry.coordinates[18],item.geometry.coordinates[18], item.geometry.coordinates[19],
+                    item.geometry.coordinates[19], item.geometry.coordinates[20]]);
+            }
+
+            graphic = new Graphic(geometry);
+            features.push(graphic);
+
+
+        });
+        featureLayer2.applyEdits(features, null, null);
+    }
+
+
+
+
+
 
 
     function requestSucceeded(response, io) {
+        var features = [];
         //loop through the items and add to the feature layer
         array.forEach(response.features, function(item) {
             var attr = {};
-			attr["properties"] = item.properties;
+			attr["properties"] = item.properties.City_Names.toString();
             //pull in any additional attributes if required
 
             var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
-            var template = new InfoTemplate("Point Information","City Name: "+ item.properties.City_Names.toString() + "</br>" + "Latitude: " + item.properties.y_latitude + "</br>" + "Longitude: " + item.properties.x_longitude);
-            graphic = new Graphic(geometry,null,null,template);
+            featureLayerTemplate = new InfoTemplate("Point Information","City_Name: "+ item.properties.City_Names.toString() + "</br>" + "Latitude: " + item.properties.y_latitude + "</br>" + "Longitude: " + item.properties.x_longitude);
+            graphic = new Graphic(geometry,null,null,featureLayerTemplate);
+            graphic.setAttributes(attr);
             features.push(graphic);
 
 
@@ -187,7 +286,7 @@ require(["esri/map",
     var renderer = new SimpleRenderer(marker);
     layer1.setRenderer(renderer);
     var template = new InfoTemplate("${type}", "${place}");
-    layer1.setInfoTemplate(template);
+    layer1.setInfoTemplate(template);;
     map.addLayer(layer1);
 
 
@@ -201,14 +300,8 @@ require(["esri/map",
      */
 
 
-    /*function getNames(){
-        for(i = 0; i < sources[1].featureLayer.features.length; i++){
-            console.log(sources[1].featureLayer.feature[i].properties.City_Names);
-
-     */
-
-
     function searchBar() {
+
 
         s = new Search({
             enableButtonMode: true, //this enables the search widget to display as a single button
@@ -216,27 +309,26 @@ require(["esri/map",
             enableInfoWindow: true,
             showInfoWindowOnSelect: false,
             map: map,
-            //sources: [],
+            sources: [],
             zoomScale: 5000000
         }, "search");
 
-        var sources = s.get("sources");
+            sources = s.get("sources");
+            sources.push({
 
-        sources.push({
+                featureLayer: featureLayer,
+                infoTemplate: null,
+                enableSuggestions: true,
+                placeholder: "Calais",
+                enableLabel: false,
+                searchFields: ["properties"],
+                displayField: "*",
+                outFields: ["*"],
+                name: "Ruskin",
+                maxSuggestions: 2,
+                exactMatch: false
 
-            featureLayer: jsonData,
-            infoTemplate: popupTemplate,
-            enableSuggestions: true,
-            placeholder: "Calais",
-            enableLabel: false,
-            searchFields: ["sources[1].featureLayer.features.properties.City_Names"],
-            //displayField: "properties.City_Names",
-            outFields: ["*"],
-            name: "Ruskin",
-            maxSuggestions: 2,
-            exactMatch: false
-
-        });
+            });
 
         //Set the sources above to the search widget
         s.set("sources", sources);
@@ -249,6 +341,9 @@ require(["esri/map",
 
 
 $(document).ready(function(){
+
+
+
     $("#layer1").click(function(){
         if (layer1.visible == true){
             layer1.hide();
@@ -256,6 +351,7 @@ $(document).ready(function(){
             layer1.show();
         }
     });
+
 
     $("#layer2").click(function(){
         if (featureLayer.visible == true){
