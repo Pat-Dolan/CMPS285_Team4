@@ -34,10 +34,10 @@ html, body, .map{
     display:none
 }
 
-#header .textArea .title {
-    text-align: center;
-    position: relative;
-    padding-top: 5px;
+div .textArea{
+    width: 331px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #ruskin_logo {
