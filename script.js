@@ -189,7 +189,6 @@ require(["esri/map",
         var features = [];
         var geometry;
         array.forEach(response.features, function(item) {
-            console.log(item.geometry.coordinates.length);
             if(item.geometry.coordinates.length == 4){
                 geometry = new Polyline([item.geometry.coordinates[0], item.geometry.coordinates[1], item.geometry.coordinates[1], item.geometry.coordinates[2], item.geometry.coordinates[2], item.geometry.coordinates[3]]);
             }
@@ -232,18 +231,23 @@ require(["esri/map",
     }
 
     function requestSucceeded(response, io) {
+        var count = 1;
         var features = [];
         //loop through the items and add to the feature layer
         array.forEach(response.features, function(item) {
+
             var attr = {};
 			attr["properties"] = item.properties.City_Names.toString();
             //pull in any additional attributes if required
 
             var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
             featureLayerTemplate = new InfoTemplate("Point Information","City_Name: "+ item.properties.City_Names.toString() + "</br>" + "Latitude: " + item.properties.y_latitude + "</br>" + "Longitude: " + item.properties.x_longitude);
-            graphic = new Graphic(geometry,null,null,featureLayerTemplate);
+            var pms = new PictureMarkerSymbol("resources/markers/red/NumberIcon"+ count +".png", 20, 20);
+            graphic = new Graphic(geometry,pms,null,featureLayerTemplate);
             graphic.setAttributes(attr);
             features.push(graphic);
+            count++;
+
 
 
         });
