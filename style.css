@@ -6,7 +6,7 @@ html, body, .map{
     height: 100%;
   }
 
-#info {
+/*#info {
     top: 80px;
     color: #fff;
     height: auto;
@@ -21,30 +21,29 @@ html, body, .map{
     border: solid 1px #003300;
     border-radius: 4px;
     background-color: #3B5786;
-}
+}*/
 
 #header{
     height:60px;
+    color:#fff;
     margin:0;
     overflow:hidden;
-    display:none;
-    background: -webkit-linear-gradient(#3B5786, #172133); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#3B5786,#172133); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#3B5786,#172133); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#3B5786, #172133); /* Standard syntax */
+    display:none
 }
 
 #header .textArea .title {
-    text-align: center;
-    font-family: ACaslonPro,serif;
+    position: relative;
+    font-family: open_sanssemibold,serif;
+    font-size: 25px;
     font-weight: 400;
     padding-top: 5px;
-    color: #ffffff;
+    padding-left: 10px;
 }
 
 img, i, .box, input,button{
 	cursor: pointer; cursor: hand;
 }
+
 
 #HomeButton {
     position: absolute;
@@ -53,15 +52,40 @@ img, i, .box, input,button{
     z-index: 50;
 }
 
-#ruskin_logo {
-    height: 44px;
-    width: auto;
+.rightArea{
+    position:absolute;
+    right:0;
+    top:0;
+    padding-top:10px;
+    padding-right:25px;
+    text-align:right
 }
 
+.rightArea .logo{
+    position:relative;
+    height:60px;
+    border:0;
+    outline:0
+} 
 @-moz-document url-prefix(){
     .rightArea .logo a{
         position:relative;display:inline-block
 	}
+    .rightArea .logo a img{
+        bottom:initial;
+        top:initial;
+        margin-top:-10px
+    }
+}
+
+.rightArea .logo img{
+    position:absolute;
+    top:50%;
+    bottom:50%;
+    right:0;
+    max-width:250px;
+    max-height:30px;
+    margin:auto 0
 }
 
 footer{
@@ -85,10 +109,10 @@ footer{
 
 .toggle{
     text-align: center;
-    background: -webkit-linear-gradient(#3B5786, #172133); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#3B5786,#172133); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#3B5786,#172133); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#3B5786, #172133); /* Standard syntax */
+    background: -webkit-linear-gradient(#3B5786, #2f456a); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3B5786,#2f456a); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3B5786,#2f456a); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3B5786, #2f456a); /* Standard syntax */
     border-bottom: solid 1px;
     border-bottom-color: #2f456a;
    }
@@ -123,12 +147,12 @@ footer{
     z-index: 20;
 }
 
-.esriPopup {
+/*.esriPopup {
     position: fixed;
     top:50%;
     left:50%;
-    width:0px;  /* adjust as per your needs */
-    height:0px;   /* adjust as per your needs */
+    width:0px;
+    height:0px;
     margin: auto;
     z-index: 40;
     font-family: open_sanssemibold,sans-serif;
@@ -179,21 +203,7 @@ footer{
     color: #3B5786;
     text-decoration: underline;
 }
-
-#ownSearch{
-    position:absolute;
-    left:5%;
-    top:40px;
-    z-index:50;
-    color: #fff;
-}
-
-#submit{
-    position:absolute;
-    z-index:50;
-    top:110px;
-    left:10%;
-}
+*/
 
 .rightPane{
 	position: absolute;
@@ -214,16 +224,13 @@ footer{
 }
 
 legend{
-    font-family: ACaslonPro,serif;
-    letter-spacing: .5px;
     padding-top: 45px;
     font-size: 25px;
 }
 
 fieldset{
-    font-family: ACaslonPro,serif;
 	border: 5px solid #3B5786;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #3B5786;
 
 }
@@ -245,9 +252,9 @@ fieldset{
     left: 60px;
 }
 
+
 .box {
-    opacity: 0.9;
-    display: inline-block;
+    display: inline-flex;
     position: relative;
     top:5px;
     margin-right: 10px;
@@ -255,17 +262,14 @@ fieldset{
     width: 0px;
     height: 80px;
     padding: 15px;
-    transition: opacity .3s, height .3s;
-    border-radius: 5px;
-    -webkit-transition: height .3s; /* Safari 3.1 to 6.0 */
-    font-family: ACaslonPro,serif;
-    letter-spacing: .5px;
+    transition: width 1s;
+    border-radius: 10px;
+    -webkit-transition: width 2s; /* Safari 3.1 to 6.0 */
 }
 
 .box:hover
 {
-    opacity: 1;
-    height: 87px;
+    height: 90px;
     top:0px;
 }
 
@@ -341,7 +345,7 @@ fieldset{
     z-index:50;
     display:block;
     background-color: #3B5786;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     color: #fff;
 }
@@ -356,13 +360,7 @@ fieldset{
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-@font-face {
-    font-family: 'ACaslonPro';
-    src: url('resources/font/ACaslonPro-Regular.otf');
-}
-
-@font-face {
-    font-family: 'ACaslonPro';
-    font-weight: bold;
-    src: url('resources/font/ACaslonPro-Semibold.otf');
+#popup:target, #popup:target + #translucent {
+    display:block;
+    opacity:2;
 }

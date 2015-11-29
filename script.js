@@ -1,26 +1,7 @@
-var map;
-var home;
-var layer1,layer2,layer3;
-var s;
-var sources;
-var graphic;
-var featureLayerTemplate;
-var featureLayer;
-var featureLayer2;
-var mapHash;
-
-
-var dojoConfig = {
-    parseOnLoad: true
-};
-var jsonData;
-
-$.ajax({
-    dataType: "json",
-    url: "GeoJsonData/AllPoints.json",
-    async: false,
-    success: function(data){jsonData = data}
-});
+var map, home, search; //esri vars
+var featureLayerTemplate, featureLayer, featureLayer2, graphic; //feature layers
+var layer1, layer2; //csv layers, if any
+var placesLayer, RuskinLayer, PlaceHolderLayer; //timeline data arrays
 
 require(["esri/map",
     "esri/layers/FeatureLayer",
@@ -50,128 +31,153 @@ require(["esri/map",
 
 ], function(Map, FeatureLayer , Extent, SpatialReference, esriRequest, on, ready, array, FeatureSet, Point, Polyline, Graphic, GraphicsLayer, SimpleMarkerSymbol, Search, PopupTemplate, HomeButton, BasemapLayer, Basemap, CSVLayer, esriBundle, PictureMarkerSymbol, SimpleRenderer, InfoTemplate) {
 
-    esriBundle.widgets.homeButton.home.title = "moves map back to original center and zoom";
+    esriBundle.widgets.homeButton.home.title = "Map Home"; // quick fix for home button hover over
+    loadMap(); // exactly what it says, loads the map from esri
+    loadFeatureLayers(); //loads Ruskin layer and the lines
+    loadCSVLayers(); // temp loads earthquake data
+    loadHome(); //loads the home button
 
-    map = new Map("mapDiv", {
-        center: [1.868956,50.9518855],
-        zoom: 3,
-        //basemap: "streets"
-        basemap: "gray" //I think this looks nice
-    });
-    home = new HomeButton({map: map
-    }, "HomeButton");
-    home.startup();
-
-
-    var featureCollection = {
-        "layerDefinition": null,
-        "featureSet": {
-            "features": [],
-            "geometryType": "esriGeometryPoint"
-        }
-    };
-    featureCollection.layerDefinition = {
-        "geometryType": "esriGeometryPoint",
-        "objectIdField": "ObjectID",
-        "drawingInfo": {
-            "renderer": {
-                "type": "simple",
-                "symbol": {
-                    "type": "esriPMS",
-                    "url": "resources/markers/StaticIcon1.png",
-                    "contentType": "resources/markers/png",
-                    "width": 15,
-                    "height": 15
-                }
+    function loadMap() {
+        map = new Map("mapDiv", {
+            center: [1.868956, 50.9518855],
+            zoom: 3,
+            //basemap: "streets"
+            basemap: "gray" //I think this looks nice
+        });
+    }
+    function loadFeatureLayers() {
+        var featureCollection = {
+            "layerDefinition": null,
+            "featureSet": {
+                "features": [],
+                "geometryType": "esriGeometryPoint"
             }
-        },
-        "fields": [{
-            "name": "ObjectID",
-            "alias": "ObjectID",
-            "type": "esriFieldTypeOID"
-        }, {
-            "name": "description",
-            "alias": "Description",
-            "type": "esriFieldTypeString"
-        }, {
-            "name": "title",
-            "alias": "Title",
-            "type": "esriFieldTypeString"
-        }]
-    }; var featureCollection2 = {
-        "layerDefinition": null,
-        "featureSet": {
-            "features": [],
-            "geometryType": "esriGeometryPolyline"
-        }
-    };
-    featureCollection2.layerDefinition = {
-        "geometryType": "esriGeometryPolyline",
-        "objectIdField": "ObjectID",
-        "drawingInfo": {
-            "renderer": {
-                "type": "simple",
-                "symbol": {
-                    "type": "esriSLS",
-                    "style": "STYLE_SOLID",
-                    "color": ([255,0,0]),
-                    "width": 5
+        };
+        featureCollection.layerDefinition = {
+            "geometryType": "esriGeometryPoint",
+            "objectIdField": "ObjectID",
+            "drawingInfo": {
+                "renderer": {
+                    "type": "simple",
+                    "symbol": {
+                        "type": "esriPMS",
+                        "url": "resources/markers/StaticIcon1.png",
+                        "contentType": "resources/markers/png",
+                        "width": 15,
+                        "height": 15
+                    }
                 }
+            },
+            "fields": [{
+                "name": "ObjectID",
+                "alias": "ObjectID",
+                "type": "esriFieldTypeOID"
+            }, {
+                "name": "description",
+                "alias": "Description",
+                "type": "esriFieldTypeString"
+            }, {
+                "name": "title",
+                "alias": "Title",
+                "type": "esriFieldTypeString"
+            }]
+        };
+        featureLayer = new FeatureLayer(featureCollection, {
+            id: "RuskinLayer",
+            mode: FeatureLayer.MODE_SNAPSHOT,
+            outFields: ["*"]
+        });
+
+        var featureCollection2 = {
+            "layerDefinition": null,
+            "featureSet": {
+                "features": [],
+                "geometryType": "esriGeometryPolyline"
             }
-        },
-        "fields": [{
-            "name": "ObjectID",
-            "alias": "ObjectID",
-            "type": "esriFieldTypeOID"
-        }, {
-            "name": "description",
-            "alias": "Description",
-            "type": "esriFieldTypeString"
-        }, {
-            "name": "title",
-            "alias": "Title",
-            "type": "esriFieldTypeString"
-        }]
-    };
+        };
+        featureCollection2.layerDefinition = {
+            "geometryType": "esriGeometryPolyline",
+            "objectIdField": "ObjectID",
+            "drawingInfo": {
+                "renderer": {
+                    "type": "simple",
+                    "symbol": {
+                        "type": "esriSLS",
+                        "style": "STYLE_SOLID",
+                        "color": ([255, 0, 0]),
+                        "width": 5
+                    }
+                }
+            },
+            "fields": [{
+                "name": "ObjectID",
+                "alias": "ObjectID",
+                "type": "esriFieldTypeOID"
+            }, {
+                "name": "description",
+                "alias": "Description",
+                "type": "esriFieldTypeString"
+            }, {
+                "name": "title",
+                "alias": "Title",
+                "type": "esriFieldTypeString"
+            }]
+        };
+        featureLayer2 = new FeatureLayer(featureCollection2, {
+            id: "lineLayer",
+            mode: FeatureLayer.MODE_SNAPSHOT,
+            outFields: ["*"]
+        });
 
-    featureLayer2 = new FeatureLayer(featureCollection2, {
-        id: "lineLayer",
-        mode: FeatureLayer.MODE_SNAPSHOT,
-        outFields: ["*"]
-    });
+        map.on("layers-add-result", function (evt) {
+            requestData();
+            requestLines();
+        });
 
-    featureLayer = new FeatureLayer(featureCollection,{
-        id:"RuskinLayer",
-        mode: FeatureLayer.MODE_SNAPSHOT,
-        outFields: ["*"]
-    });
+        featureLayer.on("edits-complete", function (event) {
+           searchBar();
+        });
 
-	map.on("layers-add-result",function(evt){
+        map.addLayers([featureLayer, featureLayer2]);
+    }
+    function loadCSVLayers() {
+        //this CSV file will be our own
+        layer1 = new CSVLayer("CSV/2.5_week.csv", {
+            copyright: "USGS.gov"
+        });
+        var marker = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 20, 20);
+        var renderer = new SimpleRenderer(marker);
+        layer1.setRenderer(renderer);
+        var template = new InfoTemplate("${type}", "${place}");
+        layer1.setInfoTemplate(template);
+        ;
+        map.addLayer(layer1);
 
-		requestData();
-        requestLines();
-	});
+        layer2 = new CSVLayer("CSV/places_mockup2.csv");
+        var marker2 = new PictureMarkerSymbol("resources/markers/greenicon.png", 30, 30);
+        var renderer2 = new SimpleRenderer(marker2);
+        layer2.setRenderer(renderer2);
+        var template2 = new InfoTemplate("${place_name}", "${place_note}");
+        layer2.setInfoTemplate(template2);
+        ;
+        map.addLayer(layer2);
+    }
+    function loadHome() {
+        home = new HomeButton({
+            map: map,
+        }, "HomeButton");
+        home.startup();
+    }
 
-    featureLayer.on("edits-complete", function(event){
-        searchBar();
-    });
-
-
-
-	map.addLayers([featureLayer, featureLayer2]);
-
-
-   function requestData(){
+    function requestData(){
         var requestHandle = esriRequest({
             url: "GeoJsonData/AllPoints.json",
 			handleAs: "json",
 			timeout: 0,			
-            callbackParamName: "jsoncallback"
+            callbackParamName: "jsoncallback",
         });
-        requestHandle.then(requestSucceeded, requestFailed);
-		
+        requestHandle.then(requestDataSucceed, requestFailed);
     }
-
     function requestLines(){
 
         var requestHandle = esriRequest({
@@ -179,12 +185,10 @@ require(["esri/map",
             handleAs: "json",
             timeout : 0,
             callbackParamName: "jsoncallback"
-
         });
-        requestHandle.then(requestSucceed, requestFailed);
+        requestHandle.then(requestLinesSucceed, requestFailed);
     }
-
-    function requestSucceed(response, io) {
+    function requestLinesSucceed(response, io) {
         //loop through the items and add to the feature layer
         var features = [];
         var geometry;
@@ -229,8 +233,7 @@ require(["esri/map",
         });
         featureLayer2.applyEdits(features, null, null);
     }
-
-    function requestSucceeded(response, io) {
+    function requestDataSucceed(response, io) {
         var count = 1;
         var features = [];
         //loop through the items and add to the feature layer
@@ -253,75 +256,37 @@ require(["esri/map",
         });
         featureLayer.applyEdits(features, null, null);
     }
-
     function requestFailed(error) {
         console.log('failed');
     }
-
-
-    /*basemap layer
-     var layer = new BasemapLayer({
-     url:"http:http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
-     });
-     var basemap = new Basemap({
-     layers:[layer],
-     title:"Ruskin's map",
-     //thumbnailUrl: to show the image in thumbnail form in the gallery
-     });
-     basemapGallery.add(basemap);*/
-
-//this CSV file will be our own
-    layer1 = new CSVLayer("2.5_week.csv", {
-        copyright: "USGS.gov"
-    });
-    var marker = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 20, 20);
-    var renderer = new SimpleRenderer(marker);
-    layer1.setRenderer(renderer);
-    var template = new InfoTemplate("${type}", "${place}");
-    layer1.setInfoTemplate(template);;
-    map.addLayer(layer1);
-
-    /*layer2 = new CSVLayer("Ruskin_Stuff.csv", {  });
-     var marker2 = new PictureMarkerSymbol("resources/markers/StaticIcon2.png", 20, 20);
-     var renderer2 = new SimpleRenderer(marker2);
-     layer2.setRenderer(renderer2);
-     var template2 = new InfoTemplate("${type}", "${place}");
-     layer2.setInfoTemplate(template2);
-     map.addLayer(layer2);
-     */
-
-        function searchBar() {
-        s = new Search({
+    function searchBar() {
+        search = new Search({
             enableButtonMode: true, //this enables the search widget to display as a single button
             enableLabel: false,
             enableInfoWindow: true,
             showInfoWindowOnSelect: false,
             map: map,
-            sources: [],
+            //sources: [],
             zoomScale: 5000000
         }, "search");
 
-            sources = s.get("sources");
-            sources.push({
-
-                featureLayer: featureLayer,
-                infoTemplate: null,
-                enableSuggestions: true,
-                placeholder: "Calais",
-                enableLabel: false,
-                searchFields: ["properties"],
-                displayField: "*",
-                outFields: ["*"],
-                name: "Ruskin",
-                maxSuggestions: 2,
-                exactMatch: false
-            });
-        var sources = s.get("sources");
-
+       /* var sources = search.get("sources");
+        sources.push({
+            featureLayer: featureLayer,
+            infoTemplate: null,
+            enableSuggestions: true,
+            placeholder: "Calais",
+            enableLabel: false,
+            searchFields: ["properties"],
+            displayField: "*",
+            outFields: ["*"],
+            name: "Ruskin",
+            maxSuggestions: 2,
+            exactMatch: false
+        });
 
         sources.push({
-
-            featureLayer: jsonData,
+            featureLayer: placesLayer,
             infoTemplate: popupTemplate,
             enableSuggestions: true,
             placeholder: "Calais",
@@ -332,226 +297,233 @@ require(["esri/map",
             name: "Ruskin",
             maxSuggestions: 2,
             exactMatch: false
-
-            });
-
+        });
 
         //Set the sources above to the search widget
-        s.set("sources", sources);
+        search.set("sources", sources);*/
 
-        console.log(sources);
-
-        s.startup();
-
+        search.startup();
     }
-
-    /*
-    mapHash = {};
-    var myKey;
-
-    for(i= 0 ; i< jsonData.features.length; i++){
-
-        myKey = jsonData.features[i].properties.City_Names;
-        mapHash[myKey] = jsonData.features[i].properties;
-
-    }
-
-    function buscar(text) {
-
-        console.log("hi");
-        //console.log(mapHash);
-
-        //var text = $("#myText").val();
-        var Xlongitude = mapHash[text].x_longitude;
-        var Ylatitude = mapHash[text].y_latitude;
-
-        var extent = new Extent(Xlongitude, Ylatitude, Xlongitude, Ylatitude, new SpatialReference({wkid: 4326}));
-        map.setExtent(extent);
-        map.setLevel(8);
-
-    }
-    */
-
-
 });
-
-
-
-
-
 
 $(document).ready(function(){
 
-   /* $("#mapDiv").trigger(function(load){
-        console.log("hi");
-        $("#submit").clik(function(event){
-            console.log("here");
-            event.preventDefault()
-            buscar();
+    $.ajax({
+        dataType: "json",
+        url: "GeoJsonData/AllPoints.json",
+        async: false,
+        success: function(data) {
+            placesLayer = data;
+            console.log(placesLayer);
+        }
+    });
+
+    $.ajax({
+        type:'GET',
+        url: 'CSV/places_mockup2.csv',
+        dataType: 'text',
+        success: function(data){
+            RuskinLayer = $.csv.toObjects(data);
+            console.log(RuskinLayer);
+        }
+    });
+
+    $.ajax({
+        type:'GET',
+        url: 'CSV/2.5_week.csv',
+        dataType: 'text',
+        success: function(data){
+            PlaceHolderLayer = $.csv.toObjects(data);
+            console.log(PlaceHolderLayer);
+        }
+    });
+
+    $(document).ajaxStop(function(){
+
+        createBoxes();
+
+        $("#layer1").click(function(){
+            if (featureLayer.visible == true){
+                featureLayer.hide();
+                featureLayer2.hide();
+            }else{
+                featureLayer.show();
+                featureLayer2.show();
+            }
         });
-    });*/
 
-    $("#layer1").click(function(){
-        if (layer1.visible == true){
-            layer1.hide();
-        }else{
-            layer1.show();
-        }
+        $("#layer2").click(function(){
+            if (layer2.visible == true){
+                layer2.hide();
+            }else{
+                layer2.show();
+            }
+        });
+
+        $("#layer3").click(function() {
+            if (layer1.visible == true) {
+                layer1.hide();
+            } else {
+                layer1.show();
+            }
+        });
+
+        $("#upArrow").mouseenter(function(){
+            $("i").css("opacity",1);
+        });
+
+        $("#upArrow").mouseleave(function(){
+            $("i").css("opacity",.5);
+        });
+
+        $("#upArrow").click(function(){
+            $("i").toggleClass("fa-arrow-down");
+            $("#footer").toggleClass("opened");
+            $("#buttonContainer").toggle();
+        });
+
+        $("#timebutton1").click( function() {
+            setVisibleContainer(1);
+        });
+
+        $("#timebutton2").click( function() {
+            setVisibleContainer(2);
+        });
+
+        $("#timebutton3").click( function() {
+            setVisibleContainer(3);
+        });
+
+        $("#slideLeft").click(function(){
+            var div = $(this);
+            var cont = getVisibleContainer();
+            var rect = document.getElementById(cont).getBoundingClientRect();
+            if(rect.left > 0){
+                $("#"+cont).animate({left: "+=" + 20},"fast");
+                $("#"+cont).animate({left: "-=" + 30},"fast");
+                $("#"+cont).animate({left: "+=" + 10},"fast");
+            }else{
+                div.animate({width: '25px'},"fast");
+                div.animate({width: '30px'}, "fast");
+                $("#"+cont).animate({left: "+=" + ((window.innerWidth-110)/5)});
+            }
+        });
+
+        $("#slideLeft").mouseenter(function(){
+            $(this).css("opacity",1);
+        });
+
+        $("#slideLeft").mouseleave(function(){
+            $(this).css("opacity",.5);
+        });
+
+        $("#slideRight").click(function(){
+            var div = $(this);
+            var cont = getVisibleContainer();
+            var rect = document.getElementById(cont).getBoundingClientRect();
+            if(rect.right < window.innerWidth-30){
+                $("#"+cont).animate({left: "-=" + 20},"fast");
+                $("#"+cont).animate({left: "+=" + 30},"fast");
+                $("#"+cont).animate({left: "-=" + 10},"fast");
+            }else{
+                div.animate({width: '25px'},"fast");
+                div.animate({width: '30px'}, "fast");
+                $("#"+cont).animate({left: "-=" + ((window.innerWidth-110)/5)});
+            }
+        });
+
+        $("#slideRight").mouseenter(function(){
+            $(this).css("opacity",1);
+        });
+
+        $("#slideRight").mouseleave(function(){
+            $(this).css("opacity",.5);
+        });
+
+        $(".box").click(function(){
+            var id = (this).getAttribute("id");
+            if(document.getElementById("popup")) {
+                closePopup();
+            }
+            createPopup(id);
+        });
     });
-
-
-    $("#layer2").click(function(){
-        if (featureLayer.visible == true){
-            featureLayer.hide();
-            featureLayer2.hide();
-        }else{
-            featureLayer.show();
-            featureLayer2.show();
-        }
-    });
-
-    /*
-     $("#layer3").click(function(){
-     if (layer3.visible == true){
-     layer3.hide();
-     }else{
-     layer3.show();
-     }
-     });
-     */
-
-    $("#upArrow").mouseenter(function(){
-        $("i").css("opacity",1);
-    });
-
-    $("#upArrow").mouseleave(function(){
-        $("i").css("opacity",.5);
-    });
-
-    $("#submit").mouseenter(function(){
-        $(this).css("opacity",.5);
-    });
-
-    $("#submit").mouseleave(function(){
-        $(this).css("opacity",1);
-    });
-
-    $("#upArrow").click(function(){
-
-        $("i").toggleClass("fa-arrow-down");
-        $("#footer").toggleClass("opened");
-        $("#buttonContainer").toggle();
-
-    });
-
-    $("#timebutton1").click( function() {
-        setVisibleContainer(1);
-    });
-
-    $("#timebutton2").click( function() {
-        setVisibleContainer(2);
-    });
-
-    $("#timebutton3").click( function() {
-        setVisibleContainer(3);
-    });
-
-    $("#slideLeft").click(function(){
-        var div = $(this);
-        var cont = getVisibleContainer();
-        var rect = document.getElementById(cont).getBoundingClientRect();
-        if(rect.left > 0){
-            $("#"+cont).animate({left: "+=" + 20},"fast");
-            $("#"+cont).animate({left: "-=" + 30},"fast");
-            $("#"+cont).animate({left: "+=" + 10},"fast");
-        }else{
-            div.animate({width: '25px'},"fast");
-            div.animate({width: '30px'}, "fast");
-            $("#"+cont).animate({left: "+=" + ((window.innerWidth-110)/5)});
-        }
-    });
-
-    $("#slideLeft").mouseenter(function(){
-        $(this).css("opacity",1);
-    });
-
-    $("#slideLeft").mouseleave(function(){
-        $(this).css("opacity",.5);
-    });
-
-    $("#slideRight").click(function(){
-        var div = $(this);
-        var cont = getVisibleContainer();
-        var rect = document.getElementById(cont).getBoundingClientRect();
-        if(rect.right < window.innerWidth-30){
-            $("#"+cont).animate({left: "-=" + 20},"fast");
-            $("#"+cont).animate({left: "+=" + 30},"fast");
-            $("#"+cont).animate({left: "-=" + 10},"fast");
-        }else{
-            div.animate({width: '25px'},"fast");
-            div.animate({width: '30px'}, "fast");
-            $("#"+cont).animate({left: "-=" + ((window.innerWidth-110)/5)});
-        }
-    });
-
-    $("#slideRight").mouseenter(function(){
-        $(this).css("opacity",1);
-    });
-    $("#slideRight").mouseleave(function(){
-        $(this).css("opacity",.5);
-    });
-
-    $(".box").click(function(){
-        var id = (this).getAttribute("id");
-        if(document.getElementById("popup")) {
-            closePopup();
-
-        }
-        createPopup(id);
-        $("#footer").toggleClass("opened");
-        $("i").toggleClass("fa-arrow-down");
-        $("#buttonContainer").toggle();
-
-    });
-
-    $("#close").click(function(){
-            $("#footer").show();
-    });
-
 });
 
-function createBoxes(container){
-    var i;
-    var element = document.getElementById("container"+container);
-
-    for (i=0; i<8; i++) {
-
-        var div = document.createElement("div");
-        var att = document.createAttribute("class");
-        var att2 = document.createAttribute("id");
-        att.value = "box";
-        att2.value = "box"+"-"+container + "-"+i;
-        div.setAttributeNode(att);
-        div.setAttributeNode(att2);
-        var node = document.createTextNode("Here is a new DIV." + "box"+"-"+container + "-"+i);
-        div.appendChild(node);
-        element.appendChild(div);
-        var elementbox = document.getElementById("box"+"-"+container + "-"+i);
-        elementbox.style.width = ((window.innerWidth-110)/5)-40 +"px";
+function createBoxes(){
+    console.log("here");
+    for(var container = 1; container<= 3; container++ ) {
+        var element = document.getElementById("container" + container);
+        if (container == 1) {
+            for (var i in placesLayer.features) {
+                var div = document.createElement("div");
+                var att = document.createAttribute("class");
+                var att2 = document.createAttribute("id");
+                att.value = "box";
+                att2.value = "box" + "-" + container + "-" + i;
+                div.setAttributeNode(att);
+                div.setAttributeNode(att2);
+                var node = document.createTextNode(placesLayer.features[i].properties.City_Names);
+                div.appendChild(node);
+                element.appendChild(div);
+                var elementbox = document.getElementById("box" + "-" + container + "-" + i);
+                elementbox.style.width = ((window.innerWidth - 110) / 5) - 40 + "px";
+            }
+            var size = (((window.innerWidth - 110) / 5)) * (placesLayer.features.length);
+            element.style.width = size + "px";
+        }
+        else if (container == 2) {
+            for (var i in RuskinLayer) {
+                var div = document.createElement("div");
+                var att = document.createAttribute("class");
+                var att2 = document.createAttribute("id");
+                att.value = "box";
+                att2.value = "box" + "-" + container + "-" + i;
+                div.setAttributeNode(att);
+                div.setAttributeNode(att2);
+                var node = document.createTextNode(RuskinLayer[i].place_name);
+                div.appendChild(node);
+                element.appendChild(div);
+                var elementbox = document.getElementById("box" + "-" + container + "-" + i);
+                elementbox.style.width = ((window.innerWidth - 110) / 5) - 40 + "px";
+            }
+            var size = (((window.innerWidth - 110) / 5)) * (RuskinLayer.length);
+            element.style.width = size + "px";
+        }
+        else if (container == 3) {
+            for (var i in PlaceHolderLayer) {
+                var div = document.createElement("div");
+                var att = document.createAttribute("class");
+                var att2 = document.createAttribute("id");
+                att.value = "box";
+                att2.value = "box" + "-" + container + "-" + i;
+                div.setAttributeNode(att);
+                div.setAttributeNode(att2);
+                var node = document.createTextNode(PlaceHolderLayer[i].place);
+                div.appendChild(node);
+                element.appendChild(div);
+                var elementbox = document.getElementById("box" + "-" + container + "-" + i);
+                elementbox.style.width = ((window.innerWidth - 110) / 5) - 40 + "px";
+            }
+            var size = (((window.innerWidth - 110) / 5)) * (PlaceHolderLayer.length);
+            element.style.width = size + "px";
+        }
     }
-
-    var size =  (((window.innerWidth-110)/5))*(i);
-    element.style.width= size +"px";
 }
-
 function createPopup(boxId){
-    //var box = document.getElementById(boxId);
-    //var boxNum = box.substring(3);
     var div = document.createElement("div");
     var att = document.createAttribute("id");
     att.value = "popup";
     div.setAttributeNode(att);
-    var node = document.createTextNode("Here is a new DIV. " + boxId );
+    var node;
+    var temp = boxId.split("-");
+    if (temp[1] == 1){
+        node = document.createTextNode(placesLayer.features[temp[2]].properties.City_Names);
+    }else if(temp[1] == 2){
+        node = document.createTextNode(RuskinLayer[temp[2]].place_name);
+    }else if(temp[1] == 3){
+        node = document.createTextNode(PlaceHolderLayer[temp[2]].place);
+    }
     div.appendChild(node);
     var element = document.body;
     element.appendChild(div);
@@ -565,17 +537,10 @@ function createPopup(boxId){
     popUp.appendChild(close);
     close.onclick = function(){closePopup()};
 }
-
 function closePopup(){
-
     var rem = document.getElementById("popup");
     document.body.removeChild(rem);
-    $("#footer").toggleClass("opened");
-    $("i").toggleClass("fa-arrow-down");
-    $("#buttonContainer").toggle();
-
 }
-
 function getVisibleContainer(){
     if(document.getElementById("container1").style.display.valueOf().toString() == "block"){
         return "container1";
@@ -585,7 +550,6 @@ function getVisibleContainer(){
         return "container3";
     }
 }
-
 function setVisibleContainer(num) {
     switch (num) {
         case(1):
