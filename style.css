@@ -25,19 +25,24 @@ html, body, .map{
 
 #header{
     height:60px;
-    color:#fff;
+    background: -webkit-linear-gradient(#3B5786, #172133); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3B5786,#172133); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3B5786,#172133); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3B5786, #172133); /* Standard syntax */
     margin:0;
     overflow:hidden;
     display:none
 }
 
 #header .textArea .title {
+    text-align: center;
     position: relative;
-    font-family: open_sanssemibold,serif;
-    font-size: 25px;
-    font-weight: 400;
     padding-top: 5px;
-    padding-left: 10px;
+}
+
+#ruskin_logo {
+    height: 45px;
+    width: auto;
 }
 
 img, i, .box, input,button{
@@ -52,21 +57,6 @@ img, i, .box, input,button{
     z-index: 50;
 }
 
-.rightArea{
-    position:absolute;
-    right:0;
-    top:0;
-    padding-top:10px;
-    padding-right:25px;
-    text-align:right
-}
-
-.rightArea .logo{
-    position:relative;
-    height:60px;
-    border:0;
-    outline:0
-} 
 @-moz-document url-prefix(){
     .rightArea .logo a{
         position:relative;display:inline-block
@@ -76,16 +66,6 @@ img, i, .box, input,button{
         top:initial;
         margin-top:-10px
     }
-}
-
-.rightArea .logo img{
-    position:absolute;
-    top:50%;
-    bottom:50%;
-    right:0;
-    max-width:250px;
-    max-height:30px;
-    margin:auto 0
 }
 
 footer{
@@ -109,10 +89,10 @@ footer{
 
 .toggle{
     text-align: center;
-    background: -webkit-linear-gradient(#3B5786, #2f456a); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#3B5786,#2f456a); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#3B5786,#2f456a); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#3B5786, #2f456a); /* Standard syntax */
+    background: -webkit-linear-gradient(#3B5786, #172133); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3B5786,#172133); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3B5786,#172133); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3B5786, #172133); /* Standard syntax */
     border-bottom: solid 1px;
     border-bottom-color: #2f456a;
    }
@@ -230,7 +210,7 @@ legend{
 
 fieldset{
 	border: 5px solid #3B5786;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: #3B5786;
 
 }
@@ -258,18 +238,20 @@ fieldset{
     position: relative;
     top:5px;
     margin-right: 10px;
-    background-color:#172133;
+    background-color: #172133;
+    opacity: 0.9;
     width: 0px;
     height: 80px;
     padding: 15px;
-    transition: width 1s;
-    border-radius: 10px;
-    -webkit-transition: width 2s; /* Safari 3.1 to 6.0 */
+    transition: opacity .3s, height .3s;
+    border-radius: 5px;
+    -webkit-transition: opacity .3s, height .3s; /* Safari 3.1 to 6.0 */
 }
 
 .box:hover
 {
-    height: 90px;
+    opacity: 1;
+    height: 87px;
     top:0px;
 }
 
@@ -282,17 +264,16 @@ fieldset{
     z-index: 900;
 }
 
-
 .timeButton {
     position: relative;
     left: 0px;
     background: #3B5786;
-    -webkit-border-top-left-radius: 7px;
-    -webkit-border-top-right-radius: 7px;
-    -moz-border-radius-topleft: 7px;
-    -moz-border-radius-topright: 7px;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     font-family: open_sanssemibold, serif;
     color: #fff;
     font-size: 11px;
