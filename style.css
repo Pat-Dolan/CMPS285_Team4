@@ -6,7 +6,7 @@ html, body, .map{
     height: 100%;
   }
 
-#info {
+/*#info {
     top: 80px;
     color: #fff;
     height: auto;
@@ -21,7 +21,7 @@ html, body, .map{
     border: solid 1px #003300;
     border-radius: 4px;
     background-color: #3B5786;
-}
+}*/
 
 #header{
     height:60px;
@@ -147,12 +147,12 @@ footer{
     z-index: 20;
 }
 
-.esriPopup {
+/*.esriPopup {
     position: fixed;
     top:50%;
     left:50%;
-    width:0px;  /* adjust as per your needs */
-    height:0px;   /* adjust as per your needs */
+    width:0px;
+    height:0px;
     margin: auto;
     z-index: 40;
     font-family: open_sanssemibold,sans-serif;
@@ -203,21 +203,7 @@ footer{
     color: #3B5786;
     text-decoration: underline;
 }
-
-#ownSearch{
-    position:absolute;
-    left:5%;
-    top:40px;
-    z-index:50;
-    color: #fff;
-}
-
-#submit{
-    position:absolute;
-    z-index:50;
-    top:110px;
-    left:10%;
-}
+*/
 
 .rightPane{
 	position: absolute;
@@ -268,7 +254,7 @@ fieldset{
 
 
 .box {
-    display: inline-block;
+    display: inline-flex;
     position: relative;
     top:5px;
     margin-right: 10px;
