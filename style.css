@@ -141,14 +141,11 @@ footer{
     font-family: open_sanssemibold,sans-serif;
     font-size: 12px;
     border-radius: 5px;
-
-
 }
 
 .esriPopup .esriPopupWrapper {
     box-shadow: 0 0.75em #777;
     anchor:top;
-
 }
 
 .esriPopup .sizer {
@@ -201,9 +198,15 @@ footer{
 }
 
 legend{
+    overflow: hidden;
+    text-align: center;
+    border-top-left-radius: 5px;
+    width: 100%;
+    top: 0;
+    height: 34px;
     font-size: 25px;
     position: relative;
-    top: 5px;
+    background-color: #172133;
 }
 
 fieldset{
@@ -296,7 +299,7 @@ fieldset{
 
 .timeButton:hover {
     text-decoration: none;
-    border:2px solid #3B5786 !important;
+    border:0px solid #3B5786 !important;
     background-image:none !important;
     background-color:#172133 !important
 }
