@@ -6,23 +6,6 @@ html, body, .map{
     height: 100%;
   }
 
-/*#info {
-    top: 80px;
-    color: #fff;
-    height: auto;
-    font-family: arial;
-    font-weight: bold;
-    left: 69px;
-    margin: 5px;
-    padding: 10px;
-    position: absolute;
-    width: 260px;
-    z-index: 40;
-    border: solid 1px #003300;
-    border-radius: 4px;
-    background-color: #3B5786;
-}*/
-
 #header{
     height:60px;
     background-color: #172133;
@@ -40,6 +23,7 @@ div .textArea{
     margin-top: 2px;
     margin-left: auto;
     margin-right: auto;
+    border: none;
 }
 
 #ruskin_logo {
@@ -47,6 +31,10 @@ div .textArea{
     top: 5px;
     height: 45px;
     width: auto;
+}
+
+#ruskin_logo:focus{
+    outline: none;
 }
 
 img, i, .box, input,button{
@@ -143,11 +131,6 @@ footer{
     border-radius: 5px;
 }
 
-.esriPopup .esriPopupWrapper {
-    box-shadow: 0 0.75em #777;
-    anchor:top;
-}
-
 .esriPopup .sizer {
     position: relative;
     width: 270px;
@@ -198,15 +181,9 @@ footer{
 }
 
 legend{
-    overflow: hidden;
-    text-align: center;
-    border-top-left-radius: 5px;
-    width: 100%;
-    top: 0;
-    height: 34px;
     font-size: 25px;
     position: relative;
-    background-color: #172133;
+    top: 5px;
 }
 
 fieldset{
@@ -268,6 +245,10 @@ fieldset{
     font-size: 14px;
 }
 
+#popup p{
+    display:table-row-group;
+}
+
 #buttonContainer{
     width: 300px;
     height: 30px;
@@ -299,9 +280,12 @@ fieldset{
 
 .timeButton:hover {
     text-decoration: none;
-    border:0px solid #3B5786 !important;
+    border:2px solid #3B5786 !important;
     background-image:none !important;
     background-color:#172133 !important
+}
+.timeButton:focus{
+    outline: none;
 }
 
 .timecontainer{

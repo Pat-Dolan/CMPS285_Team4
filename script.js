@@ -135,10 +135,10 @@ require(["esri/map",
         });
 
         featureLayer.on("edits-complete", function (event) {
-           searchBar();
+           //searchBar();
         });
 
-        map.addLayers([featureLayer, featureLayer2]);
+        map.addLayers([featureLayer2, featureLayer]);
     }
     function loadCSVLayers() {
         //this CSV file will be our own
@@ -259,7 +259,7 @@ require(["esri/map",
     function requestFailed(error) {
         console.log('failed');
     }
-    function searchBar() {
+    /*function searchBar() {
         search = new Search({
             enableButtonMode: true, //this enables the search widget to display as a single button
             enableLabel: false,
@@ -289,7 +289,7 @@ require(["esri/map",
         search.set("sources", sources);
 
         search.startup();
-    }
+    }*/
 });
 
 $(document).ready(function(){
@@ -531,19 +531,129 @@ function createPopup(boxId){
     var att = document.createAttribute("id");
     att.value = "popup";
     div.setAttributeNode(att);
-    var node;
+    var node, node2, node3, node4, node5, node6, node7, node8, node9, node10, node11, node12, node13, node14;
+    var t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14;
     var temp = boxId.split("-");
+    console.log(temp[1] + temp[2]);
     if (temp[1] == 1){
-        node = document.createTextNode(placesLayer.features[temp[2]].properties.City_Names);
-    }else if(temp[1] == 2){
-        node = document.createTextNode(RuskinLayer[temp[2]].place_name);
-    }else if(temp[1] == 3){
-        node = document.createTextNode(PlaceHolderLayer[temp[2]].place);
+        node = document.createElement("P");
+        t = document.createTextNode("City name : "+ placesLayer.features[temp[2]].properties.City_Names);
+        node.appendChild(t);
+
+        node2 = document.createElement("P");
+        t2 = document.createTextNode("Longitude: "+ placesLayer.features[temp[2]].properties.x_longitude);
+        node2.appendChild(t2);
+
+        node3 = document.createElement("P");
+        t3 = document.createTextNode("Latitude: "+ placesLayer.features[temp[2]].properties.y_latitude);
+        node3.appendChild(t3);
+
+        div.appendChild(node);
+        div.appendChild(node2);
+        div.appendChild(node3);
     }
-    div.appendChild(node);
+    else if(temp[1] == 2){
+        node = document.createElement("P");
+        t = document.createTextNode("place_id: "+ RuskinLayer[temp[2]].place_id);
+        node.appendChild(t);
+
+        node2 = document.createElement("P");
+        t2 = document.createTextNode("place_type: "+ RuskinLayer[temp[2]].place_type);
+        node2.appendChild(t2);
+
+        node3 = document.createElement("P");
+        t3 = document.createTextNode("place_name: "+ RuskinLayer[temp[2]].place_name);
+        node3.appendChild(t3);
+
+        node4 = document.createElement("P");
+        t4 = document.createTextNode("continent: "+ RuskinLayer[temp[2]].continent);
+        node4.appendChild(t4);
+
+        node5 = document.createElement("P");
+        t5 = document.createTextNode("country: "+ RuskinLayer[temp[2]].country);
+        node5.appendChild(t5);
+
+        node6 = document.createElement("P");
+        t6 = document.createTextNode("canton: "+ RuskinLayer[temp[2]].canton);
+        node6.appendChild(t6);
+
+        node7 = document.createElement("P");
+        t7 = document.createTextNode("county: "+ RuskinLayer[temp[2]].county);
+        node7.appendChild(t7);
+
+        node8 = document.createElement("P");
+        t8 = document.createTextNode("department: "+ RuskinLayer[temp[2]].department);
+        node8.appendChild(t8);
+
+        node9 = document.createElement("P");
+        t9 = document.createTextNode("province: "+ RuskinLayer[temp[2]].province);
+        node9.appendChild(t9);
+
+        node10 = document.createElement("P");
+        t10 = document.createTextNode("state: "+ RuskinLayer[temp[2]].state);
+        node10.appendChild(t10);
+
+        node11 = document.createElement("P");
+        t11 = document.createTextNode("latitude: "+ RuskinLayer[temp[2]].latitude);
+        node11.appendChild(t11);
+
+        node12 = document.createElement("P");
+        t12 = document.createTextNode("longitude: "+ RuskinLayer[temp[2]].longitude);
+        node12.appendChild(t12);
+
+        node13 = document.createElement("P");
+        t13 = document.createTextNode("description: "+ RuskinLayer[temp[2]].description);
+        node13.appendChild(t13);
+
+        node14 = document.createElement("P");
+        t14 = document.createTextNode("place_note: "+ RuskinLayer[temp[2]].place_note);
+        node14.appendChild(t14);
+
+        div.appendChild(node);
+        div.appendChild(node2);
+        div.appendChild(node3);
+        div.appendChild(node4);
+        div.appendChild(node5);
+        div.appendChild(node6);
+        div.appendChild(node7);
+        div.appendChild(node8);
+        div.appendChild(node9);
+        div.appendChild(node10);
+        div.appendChild(node11);
+        div.appendChild(node12);
+        div.appendChild(node13);
+        div.appendChild(node14);
+
+    }
+    else if(temp[1] == 3){
+        node = document.createElement("P");
+        t = document.createTextNode("Place: "+ PlaceHolderLayer[temp[2]].place);
+        node.appendChild(t);
+
+        node2 = document.createElement("P");
+        t2 = document.createTextNode("Duration: "+ PlaceHolderLayer[temp[2]].dmin);
+        node2.appendChild(t2);
+
+        node3 = document.createElement("P");
+        t3 = document.createTextNode("Magnitude: "+ PlaceHolderLayer[temp[2]].mag);
+        node3.appendChild(t3);
+
+        node4 = document.createElement("P");
+        t4 = document.createTextNode("Latitude: "+ PlaceHolderLayer[temp[2]].latitude);
+        node4.appendChild(t4);
+
+        node5 = document.createElement("P");
+        t5 = document.createTextNode("Longitude: "+ PlaceHolderLayer[temp[2]].longitude);
+        node5.appendChild(t5);
+
+        div.appendChild(node);
+        div.appendChild(node2);
+        div.appendChild(node3);
+        div.appendChild(node4);
+        div.appendChild(node5);
+    }
     var element = document.body;
     element.appendChild(div);
-
     var close = document.createElement("img");
     var att2 = document.createAttribute("id");
     att2.value = "close";
