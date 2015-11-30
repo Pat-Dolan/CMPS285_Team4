@@ -190,17 +190,18 @@ footer{
 
 .rightPane{
 	position: absolute;
-	right: 50px;
+	right: 0px;
 	top: 100px;
-	background-color: #3B5786;
-	border-color: white;
+    background: -webkit-linear-gradient(#3B5786 50%, #172133); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3B5786 50%,#172133); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3B5786 50%,#172133); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3B5786 50%, #172133); /* Standard syntax */
     color: #fff;
     z-index: 50;
     width: 200px;
     height: 110px;
-    border: outset 2px #172133;
-    border-radius: 5px;
-
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 legend{
