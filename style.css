@@ -25,10 +25,11 @@ html, body, .map{
 
 #header{
     height:60px;
-    background: -webkit-linear-gradient(#3B5786 65%, #172133); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#3B5786 65%,#172133); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#3B5786 65%,#172133); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#3B5786 65%, #172133); /* Standard syntax */
+    background-color: #172133;
+    /*background: -webkit-linear-gradient(#3B5786 50%, #172133); /* For Safari 5.1 to 6.0 */
+    /*background: -o-linear-gradient(#3B5786 50%,#172133); /* For Opera 11.1 to 12.0 */
+    /*background: -moz-linear-gradient(#3B5786 50%,#172133); /* For Firefox 3.6 to 15 */
+    /*background: linear-gradient(#3B5786 50%, #172133); /* Standard syntax */
     margin:0;
     overflow:hidden;
     display:none
@@ -36,6 +37,7 @@ html, body, .map{
 
 div .textArea{
     width: 331px;
+    margin-top: 2px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -91,12 +93,11 @@ footer{
 
 .toggle{
     text-align: center;
-    background: -webkit-linear-gradient(#172133 40%, #3B5786); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#172133 40%, #3B5786); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#172133 40%, #3B5786); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#172133 40%, #3B5786); /* Standard syntax */
-    border-bottom: solid 2px;
-    border-bottom-color: #2f456a;
+    background-color: #172133;
+    /*background: -webkit-linear-gradient(#3B5786, #172133); /* For Safari 5.1 to 6.0 */
+    /*background: -o-linear-gradient(#3B5786, #172133); /* For Opera 11.1 to 12.0 */
+    /*background: -moz-linear-gradient(#3B5786, #172133); /* For Firefox 3.6 to 15 */
+    /*background: linear-gradient(#3B5786, #172133); /* Standard syntax */
    }
 
 .opened{
@@ -234,17 +235,16 @@ fieldset{
     display: inline-flex;
     position: relative;
     top:5px;
-    margin-right: 7px;
+    margin-right: 10px;
     background-color: #172133;
     opacity: 0.9;
     width: 0px;
     height: 80px;
     padding: 15px;
-    transition: opacity .3s, height .3s;
     border-radius: 5px;
-    border: outset;
-    border-width: 1px;
+    transition: opacity .3s, height .3s;
     -webkit-transition: opacity .3s, height .3s; /* Safari 3.1 to 6.0 */
+    /*box-shadow: 3px 3px 6px #000;*/
 }
 
 .box:hover
@@ -257,7 +257,7 @@ fieldset{
 
 #container1 .box p{
     display: table-row-group;
-    font-size: 22px;
+    font-size: 18px;
 }
 #container2 .box p{
     display: table-row-group;
@@ -279,26 +279,27 @@ fieldset{
 
 .timeButton {
     position: relative;
-    left: 0px;
-    background: #3B5786;
+    left: 26px;
+    background-color: #3B5786;
+    width: 75px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    font-family: open_sanssemibold, serif;
+    font-family: sans-serif;
+    letter-spacing: .25px;
     color: #fff;
     font-size: 11px;
-    padding: 0px 10px;
+    padding: 1px 0px 0px 0px;
     text-decoration: none;
-    border: outset thin;
-    border-bottom: solid 2px;
+    border: 0px;
 }
 
 .timeButton:hover {
-    border-color: #172133;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
 .timecontainer{
@@ -353,9 +354,4 @@ fieldset{
 
 #close:hover{
     background-color: rgba(255, 255, 255, 0.15);
-}
-
-#popup:target, #popup:target + #translucent {
-    display:block;
-    opacity:2;
 }
