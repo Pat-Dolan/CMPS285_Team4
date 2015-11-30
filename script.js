@@ -104,8 +104,8 @@ require(["esri/map",
                     "symbol": {
                         "type": "esriSLS",
                         "style": "STYLE_SOLID",
-                        "color": ([255, 0, 0]),
-                        "width": 1
+                        "color": ([24,143,17]),
+                        "width":.75
                     }
                 }
             },
@@ -145,7 +145,7 @@ require(["esri/map",
         layer1 = new CSVLayer("CSV/2.5_week.csv", {
             copyright: "USGS.gov"
         });
-        var marker = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 20, 20);
+        var marker = new PictureMarkerSymbol("resources/markers/StaticIcon1.png", 18, 18);
         var renderer = new SimpleRenderer(marker);
         layer1.setRenderer(renderer);
         var template = new InfoTemplate("${type}", "${place}");
@@ -154,7 +154,7 @@ require(["esri/map",
         map.addLayer(layer1);
 
         layer2 = new CSVLayer("CSV/places_mockup2.csv");
-        var marker2 = new PictureMarkerSymbol("resources/markers/greenicon.png", 30, 30);
+        var marker2 = new PictureMarkerSymbol("resources/markers/StaticIcon2.png", 20, 20);
         var renderer2 = new SimpleRenderer(marker2);
         layer2.setRenderer(renderer2);
         var template2 = new InfoTemplate("${place_name}", "${place_note}");
@@ -245,7 +245,7 @@ require(["esri/map",
 
             var geometry = new Point(item.geometry.coordinates[0], item.geometry.coordinates[1]);
             featureLayerTemplate = new InfoTemplate("Point Information","City_Name: "+ item.properties.City_Names.toString() + "</br>" + "Latitude: " + item.properties.y_latitude + "</br>" + "Longitude: " + item.properties.x_longitude);
-            var pms = new PictureMarkerSymbol("resources/markers/red/NumberIcon"+ count +".png", 20, 20);
+            var pms = new PictureMarkerSymbol("resources/markers/green/NumberIcong"+ count +".png", 20, 20);
             graphic = new Graphic(geometry,pms,null,featureLayerTemplate);
             graphic.setAttributes(attr);
             features.push(graphic);

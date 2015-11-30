@@ -130,7 +130,7 @@ footer{
     z-index: 20;
 }
 
-/*.esriPopup {
+.esriPopup {
     position: fixed;
     top:50%;
     left:50%;
@@ -186,7 +186,6 @@ footer{
     color: #3B5786;
     text-decoration: underline;
 }
-*/
 
 .rightPane{
 	position: absolute;
@@ -258,7 +257,7 @@ fieldset{
 
 #container1 .box p{
     display: table-row-group;
-    font-size: 18px;
+    font-size: 17px;
 }
 #container2 .box p{
     display: table-row-group;
@@ -266,7 +265,7 @@ fieldset{
 }
 #container3 .box p{
     display: table-row-group;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 #buttonContainer{
@@ -300,7 +299,6 @@ fieldset{
 
 .timeButton:hover {
     text-decoration: none;
-    text-transform: uppercase;
 }
 
 .timecontainer{
