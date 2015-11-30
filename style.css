@@ -181,9 +181,15 @@ footer{
 }
 
 legend{
+    overflow: hidden;
+    text-align: center;
+    border-top-left-radius: 5px;
+    width: 100%;
+    top: 0;
+    height: 34px;
     font-size: 25px;
     position: relative;
-    top: 5px;
+    background-color: #172133;
 }
 
 fieldset{
@@ -260,9 +266,9 @@ fieldset{
 
 .timeButton {
     position: relative;
-    left: 26px;
+    left: 40px;
     background-color: #3B5786;
-    width: 75px;
+    width: 85px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
@@ -280,7 +286,7 @@ fieldset{
 
 .timeButton:hover {
     text-decoration: none;
-    border:2px solid #3B5786 !important;
+    border:1px solid #3B5786 !important;
     background-image:none !important;
     background-color:#172133 !important
 }
