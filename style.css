@@ -33,6 +33,10 @@ div .textArea{
     width: auto;
 }
 
+#ruskin_logo:focus{
+    outline: none;
+}
+
 img, i, .box, input,button{
 	cursor: pointer; cursor: hand;
 }
@@ -279,6 +283,9 @@ fieldset{
     border:2px solid #3B5786 !important;
     background-image:none !important;
     background-color:#172133 !important
+}
+.timeButton:focus{
+    outline: none;
 }
 
 .timecontainer{
