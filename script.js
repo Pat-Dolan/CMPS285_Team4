@@ -39,8 +39,8 @@ require(["esri/map",
 
     function loadMap() {
         map = new Map("mapDiv", {
-            center: [1.868956, 50.9518855],
-            zoom: 3,
+            center: [6.40941, 47.34249],
+            zoom: 5,
             //basemap: "streets"
             basemap: "gray" //I think this looks nice
         });
@@ -105,7 +105,7 @@ require(["esri/map",
                         "type": "esriSLS",
                         "style": "STYLE_SOLID",
                         "color": ([255, 0, 0]),
-                        "width": 5
+                        "width": 1
                     }
                 }
             },
@@ -270,24 +270,10 @@ require(["esri/map",
             zoomScale: 5000000
         }, "search");
 
-       /* var sources = search.get("sources");
-        sources.push({
-            featureLayer: featureLayer,
-            infoTemplate: null,
-            enableSuggestions: true,
-            placeholder: "Calais",
-            enableLabel: false,
-            searchFields: ["properties"],
-            displayField: "*",
-            outFields: ["*"],
-            name: "Ruskin",
-            maxSuggestions: 2,
-            exactMatch: false
-        });
 
         sources.push({
             featureLayer: placesLayer,
-            infoTemplate: popupTemplate,
+            infoTemplate: featureLayerTemplate,
             enableSuggestions: true,
             placeholder: "Calais",
             enableLabel: false,
@@ -300,7 +286,7 @@ require(["esri/map",
         });
 
         //Set the sources above to the search widget
-        search.set("sources", sources);*/
+        search.set("sources", sources);
 
         search.startup();
     }
@@ -463,8 +449,18 @@ function createBoxes(){
                 att2.value = "box" + "-" + container + "-" + i;
                 div.setAttributeNode(att);
                 div.setAttributeNode(att2);
-                var node = document.createTextNode(placesLayer.features[i].properties.City_Names);
+                var node = document.createElement("P");
+                var t = document.createTextNode(placesLayer.features[i].properties.City_Names);
+                node.appendChild(t);
+                var node2 = document.createElement("P");
+                var t2 = document.createTextNode("Longitude: " + placesLayer.features[i].properties.x_longitude );
+                node2.appendChild(t2);
+                var node3 = document.createElement("P");
+                var t3 = document.createTextNode("Latitude: "+ placesLayer.features[i].properties.y_latitude);
+                node3.appendChild(t3);
                 div.appendChild(node);
+                div.appendChild(node2);
+                div.appendChild(node3);
                 element.appendChild(div);
                 var elementbox = document.getElementById("box" + "-" + container + "-" + i);
                 elementbox.style.width = ((window.innerWidth - 110) / 5) - 40 + "px";
@@ -481,8 +477,18 @@ function createBoxes(){
                 att2.value = "box" + "-" + container + "-" + i;
                 div.setAttributeNode(att);
                 div.setAttributeNode(att2);
-                var node = document.createTextNode(RuskinLayer[i].place_name);
+                var node = document.createElement("P");
+                var t = document.createTextNode(RuskinLayer[i].place_name);
+                node.appendChild(t);
+                var node2 = document.createElement("P");
+                var t2 = document.createTextNode("Continent: " + RuskinLayer[i].continent);
+                node2.appendChild(t2);
+                var node3 = document.createElement("P");
+                var t3 = document.createTextNode("Description: " + RuskinLayer[i].description);
+                node3.appendChild(t3);
                 div.appendChild(node);
+                div.appendChild(node2);
+                div.appendChild(node3);
                 element.appendChild(div);
                 var elementbox = document.getElementById("box" + "-" + container + "-" + i);
                 elementbox.style.width = ((window.innerWidth - 110) / 5) - 40 + "px";
@@ -499,8 +505,18 @@ function createBoxes(){
                 att2.value = "box" + "-" + container + "-" + i;
                 div.setAttributeNode(att);
                 div.setAttributeNode(att2);
-                var node = document.createTextNode(PlaceHolderLayer[i].place);
+                var node = document.createElement("P");
+                var t = document.createTextNode(PlaceHolderLayer[i].type);
+                node.appendChild(t);
+                var node2 = document.createElement("P");
+                var t2 = document.createTextNode("Location: " + PlaceHolderLayer[i].place);
+                node2.appendChild(t2);
+                var node3 = document.createElement("P");
+                var t3 = document.createTextNode("Time: " + PlaceHolderLayer[i].time);
+                node3.appendChild(t3);
                 div.appendChild(node);
+                div.appendChild(node2);
+                div.appendChild(node3);
                 element.appendChild(div);
                 var elementbox = document.getElementById("box" + "-" + container + "-" + i);
                 elementbox.style.width = ((window.innerWidth - 110) / 5) - 40 + "px";
